@@ -6,10 +6,10 @@
 </script>
 
 <div
-  class="card m-5 md:card-side w-full bg-neutral text-neutral-content max-w-xs h-1/3 min-h-8 flex-grow"
+  class="card md:card-side shadow-xl hover:shadow-md hover:bg-base-300 transition-shadow"
 >
-  <figure>
-    <img class="w-full h-auto drop-shadow-lg" src={image} alt="Poke Mon" />
+  <figure class="bg-red-200 md:pt-6 md:px-5">
+    <img src={image} alt="Poke Mon" />
   </figure>
   <div class="card-body">
     <div class="card-title">

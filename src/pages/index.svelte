@@ -1,6 +1,7 @@
 <script>
   import { metatags } from "@roxi/routify";
   import PokeCard from "../components/PokeCard.svelte";
+  import PokeList from "../components/PokeList.svelte";
   import pokemon from "../pokeStore.js";
   console.log($pokemon);
   metatags.title = "Pokedex";
@@ -8,10 +9,10 @@
 </script>
 
 <header class="p-5 mx-5">
-  <h1 class="font-extrabold text-4xl">The pokedex</h1>
+  <h1 class="font-extrabold text-4xl">The poke dex</h1>
 </header>
 
-<section class="flex flex-row flex-wrap justify-center">
+<main class="px-5">
   {#await $pokemon}
     <div class="card shadow-lg">
       <div class="card-body">
@@ -22,10 +23,12 @@
       </div>
     </div>
   {:then pokemone}
-    {#each pokemone as { url, name, id, image }}
-      <PokeCard {url} {name} {id} {image} />
-    {/each}
+    <PokeList>
+      {#each pokemone as { url, name, id, image }}
+        <PokeCard {url} {name} {id} {image} />
+      {/each}
+    </PokeList>
   {:catch err}
     <h1>{err}</h1>
   {/await}
-</section>
+</main>
