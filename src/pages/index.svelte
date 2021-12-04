@@ -7,11 +7,11 @@
   metatags.description = "Description coming soon...";
 </script>
 
-<header class="p-5 mx-5">
+<section class="p-5 mx-5">
   <h1 class="font-extrabold text-4xl">The poke dex</h1>
-</header>
+</section>
 
-<main class="px-5">
+<section class="px-5">
   {#await $pokemon}
     <div class="card shadow-lg">
       <div class="card-body">
@@ -30,4 +30,4 @@
   {:catch err}
     <h1>{err}</h1>
   {/await}
-</main>
+</section>
