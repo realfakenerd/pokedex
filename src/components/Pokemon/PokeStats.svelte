@@ -12,7 +12,7 @@
           <h4 class="capitalize">{status["base_stat"]}</h4>
         </div>
         <progress
-          class="progress bg-red-500"
+          class="progress progress-primary bg-red-500"
           max="100"
           value={status["base_stat"]}
         />

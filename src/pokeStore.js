@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 import axios from 'axios';
 
 async function catchThemAll() {
-    const res = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=50');
+    const res = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=400');
     const data = await res.data.results;
     return data.map(({ name, url },/** @type {number} */ index) => {
         return {

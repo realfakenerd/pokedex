@@ -1,7 +1,7 @@
 <script>
   import axios from "axios";
   import { metatags } from "@roxi/routify";
-  import PokeStats from "../../components/Pokemon/PokeStats.svelte";
+  import Pokemon from "../../components/Pokemon/Pokemon.svelte";
   export let id;
   async function load() {
     const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
@@ -15,27 +15,26 @@
 
 <div class="m-5">
   {#await load()}
-    <h1>loading data</h1>
-  {:then pokemon}
-    <div class="card md:card-side shadow-2xl bg-base-300">
-      <figure class="bg-green-300">
-        <img
-          src={pokemon.sprites.other["official-artwork"]["front_default"]}
-          alt={pokemon.name}
-        />
-      </figure>
+    <div class="card bg-red-200 shadow-2xl">
       <div class="card-body">
-        <h3 class="card-title uppercase font-bold tracking-widest">
-          {pokemon.name}
-        </h3>
-        <PokeStats statuses={pokemon.stats} />
+        <div class="card-title">
+          <h1>Loading Pokemons</h1>
+        </div>
+        <p>Almost there...</p>
+      </div>
+    </div>
+  {:then pokemon}
+    <Pokemon {pokemon} />
+  {:catch err}
+    <div class="card bg-red-500 shadow-2xl">
+      <div class="card-body">
+        <div class="card-title">
+          <h1>Oh! No</h1>
+        </div>
+        <p>You almost got him.</p>
+        <br />
+        <p>{err}</p>
       </div>
     </div>
   {/await}
 </div>
-
-<style>
-  img {
-    filter: drop-shadow(2.5px 2.5px 10px rgba(0, 0, 0, 0.5));
-  }
-</style>
