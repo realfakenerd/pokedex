@@ -1,6 +1,8 @@
 <script>
   import PokeProfile from "./PokeProfile.svelte";
   import PokeStats from "./PokeStats.svelte";
+  import { fly } from "svelte/transition";
+  import { cubicInOut } from "svelte/easing";
   let classe = "bg-default";
   function pokeType(tipo) {
     switch (tipo) {
@@ -50,7 +52,11 @@
   export let pokemon;
 </script>
 
-<div class="card md:card-side shadow-2xl bg-base-200">
+<div
+  in:fly={{ x: -400, duration: 2000, easing: cubicInOut }}
+  out:fly={{ x: 200, duration: 2000, easing: cubicInOut }}
+  class="card md:card-side shadow-2xl bg-base-200"
+>
   <figure class:classe class="bg-red-200">
     <img
       src={pokemon.sprites["other"]["official-artwork"]["front_default"]}

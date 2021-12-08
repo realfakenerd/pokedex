@@ -15,7 +15,7 @@
 
 <div class="m-5">
   {#await load()}
-    <div class="card bg-red-200 shadow-2xl">
+    <div class="card bg-base-300 shadow-2xl">
       <div class="card-body">
         <div class="card-title">
           <h1>Loading Pokemons</h1>

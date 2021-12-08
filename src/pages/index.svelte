@@ -2,7 +2,8 @@
   import { metatags } from "@roxi/routify";
   import PokeCard from "../components/PokeCard.svelte";
   import PokeList from "../components/PokeList.svelte";
-  import pokemon from "../pokeStore.js";
+  import { pokemon, fetchPokemon } from "../pokeStore.js";
+  fetchPokemon();
   metatags.title = "Pokedex";
   metatags.description = "Description coming soon...";
 </script>
@@ -23,7 +24,7 @@
     </div>
   {:then pokemone}
     <PokeList>
-      {#each pokemone as { url, name, id, image }}
+      {#each pokemone as { name, id, image }}
         <PokeCard endereco={id} {name} {id} {image} />
       {/each}
     </PokeList>

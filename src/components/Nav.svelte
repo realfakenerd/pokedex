@@ -1,27 +1,23 @@
-<script>
-  const url =
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/240px-Pok%C3%A9_Ball_icon.svg.png";
-</script>
-
 <nav
   class="navbar bg-base-100 w-full shadow-lg md:mb-5 z-10 fixed bottom-0 md:relative"
 >
   <section class="navbar-start px-2 mx-2">
     <div class="w-6">
-      <a href="/"> <img src={url} alt="Pokemon Ball logo" /></a>
+      <a href="/"> <img src="/pokeball-icon.svg" alt="Pokemon Ball logo" /></a>
     </div>
   </section>
   <section class="hidden navbar-center px-2 mx-2 md:flex">
-    <div class="flex items-stretch">
-      <a class="btn btn-ghost hover:bg-red-300 focus:bg-red-500" href="/"
+    <div class="flex items-stretch space-x-5">
+      <a class="btn btn-ghost hover:text-white hover:bg-primary-focus" href="/"
         >Home</a
       >
-      <a class="btn btn-ghost hover:bg-red-300 focus:bg-red-500" href="/about"
-        >About</a
+      <a
+        class="btn btn-ghost hover:text-white hover:bg-primary-focus"
+        href="/about">About</a
       >
       <a
+        class="btn btn-ghost hover:text-white hover:bg-primary-focus"
         href="/pokemon/"
-        class="btn btn-ghost hover:bg-red-300 focus:bg-red-500"
       >
         Pokemon
       </a>
@@ -36,7 +32,7 @@
         <input
           type="text"
           placeholder="Search"
-          class="w-full pr-16 input input-ghost input-bordered border-red-300"
+          class="w-full pr-16 input input-ghost input-bordered border-primary"
           id="searchInputNav"
         />
         <button class="absolute top-0 right-0 btn btn-square btn-ghost">

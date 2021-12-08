@@ -1,5 +1,7 @@
 <script>
   import { url } from "@roxi/routify";
+  import { fade, fly } from "svelte/transition";
+  import { cubicOut, cubicInOut } from "svelte/easing";
   import axios from "axios";
   export let name;
   export let endereco;
@@ -21,6 +23,8 @@
 </script>
 
 <div
+  in:fade={{ duration: 2000, easing: cubicOut }}
+  out:fly={{ x: 200, duration: 2000, easing: cubicInOut }}
   class="card md:card-side shadow-xl hover:shadow-md hover:bg-base-300 transition-shadow"
 >
   <figure class="bg-red-200 md:pt-6 md:px-5">
@@ -31,10 +35,8 @@
       {id} : <span class="capitalize">{name}</span>
     </div>
     <div class="card-action">
-      <a
-        class="btn btn-ghost bg-red-400"
-        href="/pokemon/:id"
-        use:$url={{ id: endereco }}><span>Catch him</span></a
+      <a class="btn btn-primary" href="/pokemon/:id" use:$url={{ id: endereco }}
+        ><span>Catch him</span></a
       >
     </div>
   </div>
