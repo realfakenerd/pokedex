@@ -55,7 +55,7 @@
 <div
   in:fly={{ x: -400, duration: 2000, easing: cubicInOut }}
   out:fly={{ x: 200, duration: 2000, easing: cubicInOut }}
-  class="card md:card-side shadow-2xl bg-base-200"
+  class="card md:card-side shadow-2xl bg-base-200 mb-32 md:mb-5"
 >
   <figure class:classe class="bg-red-200">
     <img
