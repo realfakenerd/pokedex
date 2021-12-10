@@ -25,14 +25,14 @@
 <div
   in:fade={{ duration: 2000, easing: cubicOut }}
   out:fly={{ x: 200, duration: 2000, easing: cubicInOut }}
-  class="card md:card-side shadow-xl hover:shadow-md hover:bg-base-300 transition-shadow"
+  class="card md:card-side shadow-xl shadow-red-200 hover:shadow-md hover:bg-base-300 transition-shadow"
 >
   <figure class="bg-red-200 md:pt-6 md:px-5">
     <img src={image} alt={name} />
   </figure>
   <div class="card-body">
     <div class="card-title">
-      {id} : <span class="capitalize">{name}</span>
+      <span class="capitalize">{name}</span>
     </div>
     <div class="card-action">
       <a class="btn btn-primary" href="/pokemon/:id" use:$url={{ id: endereco }}
