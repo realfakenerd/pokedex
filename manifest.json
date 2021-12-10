@@ -4,10 +4,45 @@
   "lang": "pt-BR",
   "start_url": "/",
   "display": "fullscreen",
-  "icons":[
+  "icons": [
     {
       "src": "pokeball-144.png",
       "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "maskable_iconx48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "maskable_iconx72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "maskable_iconx96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "maskable_iconx128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "maskable_iconx192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "maskable_iconx384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "maskable_iconx512.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ]
