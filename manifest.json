@@ -3,5 +3,12 @@
   "short_name": "PkDex",
   "lang": "pt-BR",
   "start_url": "/",
-  "display": "fullscreen"
+  "display": "fullscreen",
+  "icons":[
+    {
+      "src": "pokeball-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ]
 }
