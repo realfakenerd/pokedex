@@ -1,3 +1,0 @@
-import{S as k,i as q,s as x,o as c,f as b,q as g,r as s,u as $,h as y,v as a,n as h,l as C,w as S,x as j}from"./vendor.6ad128b1.js";function w(v){let e,l,n,t,_,r,f,u,d,i,m;return{c(){e=c("div"),l=c("div"),l.textContent="404",n=b(),t=c("div"),_=g(`Page not found.
-    
-    `),r=c("a"),f=g("Go back"),d=b(),i=c("img"),s(l,"class","huge svelte-viq1pm"),s(r,"href",u=v[0]("../")),$(i.src,m="pokeball-icon.svg")||s(i,"src",m),s(i,"alt","pokeball"),s(t,"class","big"),s(e,"class","e404 svelte-viq1pm")},m(o,p){y(o,e,p),a(e,l),a(e,n),a(e,t),a(t,_),a(t,r),a(r,f),a(t,d),a(t,i)},p(o,[p]){p&1&&u!==(u=o[0]("../"))&&s(r,"href",u)},i:h,o:h,d(o){o&&C(e)}}}function F(v,e,l){let n;return S(v,j,t=>l(0,n=t)),[n]}class P extends k{constructor(e){super();q(this,e,F,w,x,{})}}export{P as default};
