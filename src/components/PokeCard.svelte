@@ -25,7 +25,7 @@
 <div
   in:fade={{ duration: 2000, easing: cubicOut }}
   out:fly={{ x: 200, duration: 2000, easing: cubicInOut }}
-  class="card md:card-side shadow-xl shadow-red-200 hover:shadow-md hover:bg-base-300 transition-shadow"
+  class="card md:card-side shadow-lg shadow-red-200 hover:shadow-2xl hover:shadow-blue-200 hover:bg-base-300 duration-700"
 >
   <figure class="bg-red-200 md:pt-6 md:px-5">
     <img src={image} alt={name} />
