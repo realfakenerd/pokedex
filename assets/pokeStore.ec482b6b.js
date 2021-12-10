@@ -1,1 +1,0 @@
-import{G as a}from"./vendor.56dac642.js";const n=a([]);let e=!1;const i=async()=>{if(e)return;const o=(await(await fetch("https://pokeapi.co/api/v2/pokemon?limit=10")).json()).results.map((s,t)=>({name:s.name,id:t+1,image:`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${t+1}.png`}));n.set(o),e=!0};export{i as f,n as p};
