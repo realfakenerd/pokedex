@@ -1,8 +1,8 @@
 module.exports = {
+    mode: 'jit',
     purge: ['./src/**/*.svelte', './src/**/*.css'],
     plugins: [
-        require('daisyui'),
-        require('@tailwindcss/aspect-ratio')
+        require('daisyui')
     ],
     daisyui: {
         themes: [
