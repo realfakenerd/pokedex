@@ -1,6 +1,6 @@
 module.exports = {
     mode: 'jit',
-    purge: ['./src/**/*.svelte', './src/**/*.css'],
+    content: ['./src/**/*.svelte', './src/**/*.css'],
     plugins: [
         require('daisyui')
     ],

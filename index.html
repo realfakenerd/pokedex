@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html data-theme="cus-light" lang="pt-BR">
+<html lang="pt-BR">
 
 <head>
     <meta charset="utf-8" />
     <script type="module">
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js', {scope: '/'})
+            navigator.serviceWorker.register('sw.js', { scope: '/' })
         }
     </script>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="shortcut icon" href="/pokeball-icon.svg" type="image/svg">
-    <link rel="manifest" href="manifest.json" />
+    <link type="image/svg" rel="shortcut icon" href="/pokeball-icon.svg">
+    <link type="application/manifest+json" rel="manifest" href="chromium_pwa_manifest.json" />
     <title>Routify app</title>
 
 </head>

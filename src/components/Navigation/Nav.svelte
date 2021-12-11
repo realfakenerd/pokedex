@@ -7,7 +7,13 @@
 >
   <section class="navbar-start px-2 mx-2">
     <div class="w-6">
-      <a href="/"> <img src="pokeball-icon.svg" alt="Pokemon Ball logo" /></a>
+      <a href="/">
+        <img
+          style="width:24; height:24"
+          src="pokeball-icon.svg"
+          alt="Pokemon Ball logo"
+        /></a
+      >
     </div>
   </section>
   <section class="hidden navbar-center px-2 mx-2 md:flex">

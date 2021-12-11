@@ -16,5 +16,12 @@
 </script>
 
 <figure class="bg-gradient-to-r {class_name1} {class_name2}">
-  <img class="filter  drop-shadow-2xl" src={sprite} alt={altName} />
+  <img
+    width="475"
+    height="475"
+    style="width:475;height:475"
+    class="filter  drop-shadow-2xl"
+    src={sprite}
+    alt={altName}
+  />
 </figure>
