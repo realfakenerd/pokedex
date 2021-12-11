@@ -8,7 +8,7 @@
   "theme_color":"#0008ff",
   "description": "The most super supreme pokedex",
   "display": "fullscreen",
-  "orientation": "landscape-primary",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "pokeball-144.png",
