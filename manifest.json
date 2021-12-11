@@ -1,75 +1,57 @@
 {
-  "index.html": {
-    "file": "assets/index.a17147b2.js",
-    "src": "index.html",
-    "isEntry": true,
-    "imports": [
-      "_vendor.145d1034.js"
-    ],
-    "dynamicImports": [
-      "src/pages/_fallback.svelte",
-      "src/pages/index.svelte",
-      "src/pages/pokemon/[id].svelte",
-      "src/pages/_layout.svelte"
-    ],
-    "css": [
-      "assets/index.f1f34002.css"
-    ]
-  },
-  "_vendor.145d1034.js": {
-    "file": "assets/vendor.145d1034.js"
-  },
-  "src/pages/_fallback.svelte": {
-    "file": "assets/_fallback.2c87b41d.js",
-    "src": "src/pages/_fallback.svelte",
-    "isDynamicEntry": true,
-    "imports": [
-      "_vendor.145d1034.js"
-    ],
-    "css": [
-      "assets/_fallback.2f571c87.css"
-    ]
-  },
-  "src/pages/index.svelte": {
-    "file": "assets/index.e5622392.js",
-    "src": "src/pages/index.svelte",
-    "isDynamicEntry": true,
-    "imports": [
-      "_vendor.145d1034.js",
-      "_index.4872d49b.js",
-      "_pokeStore.13924b5f.js"
-    ]
-  },
-  "_pokeStore.13924b5f.js": {
-    "file": "assets/pokeStore.13924b5f.js",
-    "imports": [
-      "_vendor.145d1034.js",
-      "_index.4872d49b.js"
-    ]
-  },
-  "_index.4872d49b.js": {
-    "file": "assets/index.4872d49b.js",
-    "imports": [
-      "_vendor.145d1034.js"
-    ]
-  },
-  "src/pages/pokemon/[id].svelte": {
-    "file": "assets/_id_.6858af0b.js",
-    "src": "src/pages/pokemon/[id].svelte",
-    "isDynamicEntry": true,
-    "imports": [
-      "_vendor.145d1034.js",
-      "_index.4872d49b.js"
-    ]
-  },
-  "src/pages/_layout.svelte": {
-    "file": "assets/_layout.85a2fcd2.js",
-    "src": "src/pages/_layout.svelte",
-    "isDynamicEntry": true,
-    "imports": [
-      "_vendor.145d1034.js",
-      "_index.4872d49b.js",
-      "_pokeStore.13924b5f.js"
-    ]
-  }
+  "name": "Pokedex",
+  "short_name": "PkDex",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "pokeball-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "maskable": "maskable any"
+    },
+    {
+      "src": "pokeball-48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "maskable": "maskable any"
+    },
+    {
+      "src": "pokeball-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "maskable": "maskable any"
+    },
+    {
+      "src": "pokeball-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "maskable": "maskable any"
+    },
+    {
+      "src": "pokeball-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "maskable": "maskable any"
+    },
+    {
+      "src": "pokeball-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "maskable": "maskable any"
+    },
+    {
+      "src": "pokeball-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "maskable": "maskable any"
+    },
+    {
+      "src": "pokeball-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "maskable": "maskable any"
+    }
+  ]
 }
