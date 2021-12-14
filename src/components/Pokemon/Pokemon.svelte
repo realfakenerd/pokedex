@@ -2,7 +2,7 @@
   import PokeProfile from "./PokeProfile.svelte";
   import PokeStats from "./PokeStats.svelte";
   import PokeImg from "./PokeImg.svelte";
-  import { fly } from "svelte/transition";
+  import { fly, fade } from "svelte/transition";
   import { cubicInOut } from "svelte/easing";
   export let pokemon;
 
@@ -13,7 +13,7 @@
 
 <div
   in:fly={{ x: -400, duration: 2000, easing: cubicInOut }}
-  out:fly={{ x: 200, duration: 2000, easing: cubicInOut }}
+  out:fade={{ duration: 2000, easing: cubicInOut }}
   class="card md:card-side shadow-red-400 bg-base-200 shadow-2xl mb-32 md:mb-5"
 >
   <PokeImg

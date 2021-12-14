@@ -1,7 +1,7 @@
 <script>
   import { url } from "@roxi/routify";
-  import { fade, fly } from "svelte/transition";
-  import { cubicOut, cubicInOut } from "svelte/easing";
+  import { fade } from "svelte/transition";
+  import { cubicInOut } from "svelte/easing";
   export let name;
   export let endereco;
   // export let id;
@@ -9,8 +9,7 @@
 </script>
 
 <div
-  in:fade={{ duration: 2000, easing: cubicOut }}
-  out:fly={{ x: 200, duration: 2000, easing: cubicInOut }}
+  transition:fade={{ duration: 1000, easing: cubicInOut }}
   class="card md:card-side shadow-lg shadow-red-200 hover:shadow-2xl hover:shadow-blue-200 hover:bg-base-300 duration-700"
 >
   <figure class="bg-red-200 md:pt-6 md:px-5">
