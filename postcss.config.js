@@ -3,7 +3,7 @@ module.exports = {
         require('postcss-import')(),
         require('tailwindcss'),
         require('autoprefixer')({
-            overrideBrowserslist: ['defaults and last 4 versions'],
+            overrideBrowserslist: ['last 2 versions'],
         }),
         require('cssnano')({
             preset: 'default'

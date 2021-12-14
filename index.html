@@ -3,21 +3,26 @@
 
 <head>
     <meta charset="utf-8" />
-    <script type="module">
+    <script defer type="module">
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js', { scope: '/' })
         }
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link type="image/svg" rel="shortcut icon" href="/pokeball-icon.svg">
+    <link type="image/svg+xml" rel="shortcut icon" href="/pokeball-icon.svg">
     <link type="application/manifest+json" rel="manifest" href="manifest.json" />
     <title>Pokedex</title>
 
 </head>
 
-<body>
+<body class="h-screen">
     <noscript>Please enable Javascript for this site to function.</noscript>
-    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/main.js">
+        document.body.dataset.routify = 'scroll-lock'
+    </script>
 </body>
 
 </html>

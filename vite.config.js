@@ -10,6 +10,8 @@ export default defineConfig({
     },
     build:{
         reportCompressedSize: false,
+        target: 'esnext',
+        minify: 'terser',
     },
     plugins: [
         svelte(),
@@ -17,7 +19,7 @@ export default defineConfig({
             algorithm: 'brotliCompress',
             threshold: 512,
             compressionOptions:{
-                level: 11
+                level: 3
             }
         }),
         // @ts-ignore

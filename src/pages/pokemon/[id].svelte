@@ -13,7 +13,7 @@
   metatags.title = `Pokedex - ${id}`;
 </script>
 
-<div class="m-5">
+<div class="m-5 min-h-full h-auto">
   {#await load()}
     <div class="card bg-base-300 shadow-2xl">
       <div class="card-body">

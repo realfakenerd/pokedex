@@ -31,6 +31,8 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
-    "daisyui": "^1.16.2"
+    "daisyui": "^1.16.2",
+    "motion": "^10.4.0",
+    "svelte-media-query": "^1.1.2"
   }
 }

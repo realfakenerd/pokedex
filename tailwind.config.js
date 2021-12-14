@@ -4,6 +4,11 @@ module.exports = {
     plugins: [
         require('daisyui')
     ],
+    theme: {
+        fontFamily: {
+            'body': ['Inter', 'sans-serif'],
+        },
+    },
     daisyui: {
         themes: [
             {
