@@ -2,62 +2,60 @@
   "name": "The Supreme Pokedex",
   "short_name": "Pokedex",
   "lang": "pt-BR",
-  "id": "/?homescreen=1",
-  "start_url": "/?homescreen=1",
+  "start_url": "/?source=pwa",
   "scope": "/",
-  "background_color": "#fff",
+  "background_color": "#0008ff",
   "theme_color":"#0008ff",
   "description": "The most super supreme pokedex",
   "display": "fullscreen",
-  "orientation": "any",
   "icons": [
     {
       "src": "pokeball-144.png",
       "sizes": "144x144",
       "type": "image/png",
-      "maskable": "maskable"
+      "maskable": "maskable any"
     },
     {
       "src": "pokeball-48.png",
       "sizes": "48x48",
       "type": "image/png",
-      "maskable": "maskable"
+      "maskable": "maskable any"
     },
     {
       "src": "pokeball-72.png",
       "sizes": "72x72",
       "type": "image/png",
-      "maskable": "maskable"
+      "maskable": "maskable any"
     },
     {
       "src": "pokeball-96.png",
       "sizes": "96x96",
       "type": "image/png",
-      "maskable": "maskable"
+      "maskable": "maskable any"
     },
     {
       "src": "pokeball-128.png",
       "sizes": "128x128",
       "type": "image/png",
-      "maskable": "maskable"
+      "maskable": "maskable any"
     },
     {
       "src": "pokeball-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "maskable": "maskable"
+      "maskable": "maskable any"
     },
     {
       "src": "pokeball-384.png",
       "sizes": "384x384",
       "type": "image/png",
-      "maskable": "maskable"
+      "maskable": "maskable any"
     },
     {
       "src": "pokeball-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "maskable": "maskable"
+      "maskable": "maskable any"
     }
   ]
 }
