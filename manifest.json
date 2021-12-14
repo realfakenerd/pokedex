@@ -5,7 +5,7 @@
   "id": "/?homescreen=1",
   "start_url": "/?homescreen=1",
   "scope": "/",
-  "background_color": "#0008ff",
+  "background_color": "#fff",
   "theme_color":"#0008ff",
   "description": "The most super supreme pokedex",
   "display": "fullscreen",
