@@ -4,12 +4,12 @@
   import { cubicInOut } from "svelte/easing";
   export let name;
   export let endereco;
-  // export let id;
   export let image;
 </script>
 
 <div
-  transition:fade={{ duration: 1000, easing: cubicInOut }}
+  in:fade={{ duration: 1900, easing: cubicInOut }}
+  out:fade={{ duration: 500 }}
   class="card md:card-side shadow-lg shadow-red-200 hover:shadow-2xl hover:shadow-blue-200 hover:bg-base-300 duration-700"
 >
   <figure class="bg-red-200 md:pt-6 md:px-5">
@@ -17,7 +17,7 @@
       loading="lazy"
       width="96"
       height="96"
-      class="image-full md:w-[96px] md:h-[96px]"
+      class="image-full"
       src={image}
       alt={name}
     />

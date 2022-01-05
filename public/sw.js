@@ -23,5 +23,5 @@ if (workbox) {
     });
     clientsClaim();
 } else {
-    console.log('Boo! Workbox failed to load 😬');
+    console.error('Boo! Workbox failed to load 😬');
 }

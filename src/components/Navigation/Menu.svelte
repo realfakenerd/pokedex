@@ -53,7 +53,7 @@
   </button>
   <ul
     tabindex="0"
-    class="p-2 shadow menu dropdown-content bg-base-100 rounded-box"
+    class="p-2 shadow menu dropdown-content bg-base-200 rounded-box"
   >
     {#each links as [path, name]}
       <li>

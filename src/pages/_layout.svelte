@@ -6,7 +6,7 @@
   <Nav />
 </header>
 
-<main class="bg-base-100">
+<main class="bg-base-100 min-h-screen">
   <slot />
 </main>
 
