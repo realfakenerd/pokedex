@@ -1,11 +1,26 @@
 <script>
   import { url } from "@roxi/routify";
+  import { onMount } from "svelte";
+  import { animate, spring } from "motion";
+  onMount(() => {
+    animate(
+      '#pokebola',
+      {
+        rotate: 360
+      }, {
+        duration: 2,
+        delay: .5,
+        easing: spring()
+      }
+    )
+  });
   export let links = [];
 </script>
 
 <div class="dropdown dropdown-top">
   <button tabindex="0" class="w-8" type="menu">
     <svg
+      id="pokebola"
       enable-background="new 0 0 595.3 594.1"
       version="1.1"
       viewBox="0 0 595.3 594.1"

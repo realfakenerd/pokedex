@@ -1,22 +1,38 @@
 <script>
   import { url } from "@roxi/routify";
-  import { fade } from "svelte/transition";
-  import { cubicInOut } from "svelte/easing";
+  import { onMount } from "svelte";
+  import { animate, stagger} from "motion";
   export let name;
   export let endereco;
   export let image;
+
+  onMount(() => {
+    animate(
+      ".card",
+      {
+        opacity: [0,1],
+        translateY: -20
+      },
+      {
+        duration: 1.2,
+        delay: stagger(.2,{
+          start: 1
+        }),
+        easing: 'ease-in-out'
+      }
+    ).finished(()=>{
+
+    });
+  });
 </script>
 
 <div
-  in:fade={{ duration: 1900, easing: cubicInOut }}
-  out:fade={{ duration: 500 }}
-  class="card md:card-side shadow-lg shadow-red-200 hover:shadow-2xl hover:shadow-blue-200 hover:bg-base-300 duration-700"
+  class="card md:card-side bg-base-100 hover:shadow-2xl hover:shadow-[#ee262c]/20  hover:bg-base-300 duration-300"
 >
   <figure class="bg-red-200 md:pt-6 md:px-5">
     <img
       loading="lazy"
-      width="96"
-      height="96"
+     style="width:96px;height:96px"
       class="image-full"
       src={image}
       alt={name}

@@ -2,9 +2,24 @@
   import PokeProfile from "./PokeProfile.svelte";
   import PokeStats from "./PokeStats.svelte";
   import PokeImg from "./PokeImg.svelte";
-  import { fly } from "svelte/transition";
-  import { cubicInOut } from "svelte/easing";
+  import { onMount } from "svelte";
+  import { animate,spring } from "motion";
   export let pokemon;
+
+  onMount(() => {
+    animate(
+      ".card",
+      {
+        opacity: 100,
+        x: 100
+      },
+      {
+        duration: 1.5,
+        delay: 1,
+        easing: spring()
+      }
+    );
+  });
 
   let poketipo = pokemon.types.map((data) => data.type.name);
   let displayPoketipo =
@@ -12,7 +27,7 @@
 </script>
 
 <div
-  in:fly={{ x: -400, duration: 2000, easing: cubicInOut }}
+  style="opacity: 0; left: -100px"
   class="card md:card-side shadow-red-400 bg-base-200 shadow-2xl mb-32 md:mb-5"
 >
   <PokeImg

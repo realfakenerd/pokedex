@@ -6,7 +6,6 @@
   const links = [
     ["/", "Home"],
     ["/about", "About"],
-    ["/pokemones", "Pokemones"],
   ];
 </script>
 
@@ -20,6 +19,7 @@
       {:else}
         <div class="w-8">
           <svg
+            id="pokebola"
             enable-background="new 0 0 595.3 594.1"
             version="1.1"
             viewBox="0 0 595.3 594.1"
@@ -67,6 +67,7 @@
         </div>
       {/if}
     </MediaQuery>
+    <h2 class="ml-5 text-lg uppercase">The poke dex</h2>
   </section>
   <section class="hidden navbar-center px-2 mx-2 md:flex">
     <ul class="flex items-stretch space-x-3">

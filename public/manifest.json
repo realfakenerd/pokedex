@@ -6,7 +6,7 @@
   "start_url": "/?homescreen=1",
   "scope": "/",
   "background_color": "#0008ff",
-  "theme_color":"#0008ff",
+  "theme_color": "#0008ff",
   "description": "The most super supreme pokedex",
   "display": "fullscreen",
   "orientation": "any",
