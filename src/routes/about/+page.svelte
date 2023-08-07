@@ -1,7 +1,7 @@
 <script>
   import { metatags, ready } from "@roxi/routify";
-  import PokeCard from "../components/PokeCard.svelte";
-  import PokeList from "../components/PokeList.svelte";
+  import PokeCard from "../../components/PokeCard.svelte";
+  import PokeList from "../../components/PokeList.svelte";
   import { pokemon, fetchPokemon } from "../pokeStore.js";
   fetchPokemon().finally($ready);
   metatags.title = "Pokemones";
