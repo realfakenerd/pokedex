@@ -1,6 +1,8 @@
 <script>
     import pokeball from './pokeball.svg';
     import pokepin from './PokePin.svg';
+    import pokeheart from './PokeHeart.svg';
+    import perfil from './Perfil.svg';
 </script>
 
 <nav>
@@ -13,11 +15,11 @@
     <span>Regions</span>
   </a>
   <a href="pokepn">
-    <img src={pokepin} alt="pokepin"/>
+    <img src={pokeheart} alt="pokeheart"/>
     <span>Favorites</span>
   </a>
   <a href="pokepn">
-    <img src={pokepin} alt="pokepin"/>
+    <img src={perfil} alt="perfil"/>
     <span>Profile</span>
   </a>
 </nav>

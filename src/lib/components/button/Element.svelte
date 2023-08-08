@@ -1,25 +1,4 @@
 <script lang="ts">
-  type Elements =
-    | "all"
-    | "water"
-    | "dragon"
-    | "eletric"
-    | "fairy"
-    | "ghost"
-    | "fire"
-    | "ice"
-    | "grass"
-    | "bug"
-    | "fight"
-    | "normal"
-    | "dark"
-    | "steel"
-    | "rock"
-    | "psychic"
-    | "ground"
-    | "poison"
-    | "flying";
-
   export let element: Elements = "all";
 
   function gibberish(bg = true, hover = false) {

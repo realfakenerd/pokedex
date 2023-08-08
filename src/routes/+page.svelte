@@ -1,15 +1,19 @@
 <script>
-  import { CTA as ButtonCTA, Element as ButtonElement } from "$lib/components";
+  import { PokeCard } from "$lib/components/cards";
+  import { SearchBar } from "$lib/components/inputs";
+  export let data;
+
+  const { pokemones } = data;
 </script>
 
-<section class="p-4 flex-col flex gap-2">
-  <ButtonCTA filled>Continuar</ButtonCTA>
-  <ButtonCTA outlined>Continuar</ButtonCTA>
-  <ButtonCTA disabled>Continuar</ButtonCTA>
-</section>
+<SearchBar />
 
-<section class="flex flex-col gap-2 p-4">
-  {#each ["all", "water", "dragon", "eletric", "fairy", "ghost", "fire", "ice", "grass", "bug", "fight", "normal", "dark", "steel", "rock", "psychic", "ground", "poison", "flying"] as element}
-    <ButtonElement {element} />
+<section class="flex flex-col gap-2 my-2 px-2">
+  {#each pokemones.results as pokemon, i (i)}
+    {#await pokemon}
+      loading....
+    {:then pokemon}
+      <PokeCard poketype={pokemon.types} id={i + 1} pokename={pokemon.name} />
+    {/await}
   {/each}
 </section>
