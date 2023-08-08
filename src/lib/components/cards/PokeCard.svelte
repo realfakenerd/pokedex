@@ -92,7 +92,7 @@
     class="image-section"
   >
     <div>
-      <Icon fill="red" class="w-[94px] h-[94px]" name={poketype[0].type.name}/>
+      <Icon fill="#ccc" class="w-[94px] h-[94px]" name={poketype[0].type.name}/>
     </div>
     <figure>
       <img width="256" height="256" loading="lazy" src={img} alt={pokename} />
