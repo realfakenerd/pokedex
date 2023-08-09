@@ -43,7 +43,9 @@
 		"vite": "^4.4.9",
 		"vite-plugin-compression": "^0.3.6",
 		"vite-plugin-remove-console": "^2.1.1",
-		"vitest": "^0.32.4"
+		"vitest": "^0.32.4",
+		"workbox-core": "^7.0.0",
+		"workbox-recipes": "^7.0.0"
 	},
 	"type": "module"
 }
