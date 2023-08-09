@@ -40,7 +40,9 @@
 <section class="poke-container">
   <section class="info-section">
     <hgroup class="flex-col justify-start items-start flex">
-      <h2 class="text-title-small">Nº {id < 100 ? id < 10 ? `00${id}` : `0${id}` : id}</h2>
+      <h2 class="text-title-small">
+        Nº {id < 100 ? (id < 10 ? `00${id}` : `0${id}`) : id}
+      </h2>
       <h1
         class="text-on-surface-variant capitalize text-[21px] text-title-large"
       >
@@ -92,18 +94,21 @@
     class="image-section"
   >
     <div>
-      <Icon fill="#ccc" class="w-[94px] h-[94px]" name={poketype[0].type.name}/>
+      <Icon
+        fill="#ccc"
+        class="w-[94px] h-[94px]"
+        name={poketype[0].type.name}
+      />
     </div>
     <figure>
       <img width="256" height="256" loading="lazy" src={img} alt={pokename} />
     </figure>
   </section>
 
-  <div class="w-8 h-8 left-[290px] top-[6px] absolute">
-    <div
-      class="w-8 h-8 left-0 top-0 absolute bg-black bg-opacity-30 rounded-full border border-white backdrop-blur-[7px]"
-    />
-    <div class="w-4 h-4 left-[8px] top-[8px] absolute" />
+  <div
+    class="w-8 h-8 rounded-full ring-2 right-2 flex justify-center items-center top-2 bg-surface/70 absolute"
+  >
+    +
   </div>
 </section>
 

@@ -9,6 +9,6 @@
   <slot />
 </main>
 
-<footer class="fixed bottom-0 w-full left-0">
+<footer class="fixed bottom-0 w-full left-0 z-50">
   <Navbar />
 </footer>
