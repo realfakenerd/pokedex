@@ -89,7 +89,7 @@
 
 <style>
 	.poke-container {
-		@apply bg-surface-variant relative inline-flex min-h-[118px] min-w-[403px] rounded-2xl;
+		@apply bg-surface-variant relative inline-flex min-h-[118px] rounded-2xl;
 	}
 
 	.image-section {
