@@ -1,14 +1,14 @@
 <script>
-  import { Navbar } from "$lib/components/navigation";
-  import "../app.css";
-  import "@fontsource/poppins/400.css";
-  import "@fontsource/poppins/500.css";
+	import Navbar from '$lib/components/navigation/Navbar.svelte';
+	import '@fontsource/poppins/400.css';
+	import '@fontsource/poppins/500.css';
+	import '../app.css';
 </script>
 
 <main class="min-h-[100dvh]">
-  <slot />
+	<slot />
 </main>
 
 <footer class="fixed bottom-0 left-0 z-50 w-full">
-  <Navbar />
+	<Navbar />
 </footer>
