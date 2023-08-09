@@ -27,7 +27,7 @@
   button {
     background-color: rgb(var(--bg-color));
     color: rgb(var(--on-color));
-    @apply transition-colors min-w-[328px] capitalize w-full px-4 py-2 rounded-3xl flex-col place-items-center gap-2 inline-flex;
+    @apply inline-flex w-full min-w-[328px] flex-col place-items-center gap-2 rounded-3xl px-4 py-2 capitalize transition-colors;
   }
 
   button:hover {

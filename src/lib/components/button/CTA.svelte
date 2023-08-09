@@ -12,7 +12,7 @@
 
 <style>
   button {
-    @apply flex min-w-[328px] text-label-large w-full py-2.5 rounded-3xl px-2 justify-center items-center;
+    @apply text-label-large flex w-full min-w-[328px] items-center justify-center rounded-3xl px-2 py-2.5;
   }
 
   button.filled:not(:disabled) {
@@ -20,11 +20,11 @@
   }
 
   button.outlined:not(:disabled) {
-    @apply ring-1 ring-primary-container text-on-primary-container transition-all;
+    @apply ring-primary-container text-on-primary-container ring-1 transition-all;
   }
 
   button.outlined:hover:not(:disabled) {
-    @apply ring-2 text-primary;
+    @apply text-primary ring-2;
   }
 
   button:disabled {
@@ -32,6 +32,6 @@
   }
 
   button > span {
-    @apply justify-center items-center gap-1.5 flex;
+    @apply flex items-center justify-center gap-1.5;
   }
 </style>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "$lib/elements/Icon.svelte";
-import type { PageData } from "./$types";
+  import type { PageData } from "./$types";
 
   export let data: PageData;
   const { pokemon } = data;
@@ -67,7 +67,12 @@ import type { PageData } from "./$types";
 
   <section class="header-background">
     <div>
-      <Icon width={204} height={204} fill="#ccc" name={pokemon.types[0].type.name}/>
+      <Icon
+        width={204}
+        height={204}
+        fill="#ccc"
+        name={pokemon.types[0].type.name}
+      />
     </div>
   </section>
   <figure>
@@ -82,7 +87,7 @@ import type { PageData } from "./$types";
 
 <style>
   header {
-    @apply overflow-hidden w-full relative flex flex-col justify-between min-h-[308px] items-center;
+    @apply relative flex min-h-[308px] w-full flex-col items-center justify-between overflow-hidden;
   }
 
   header img {
@@ -93,14 +98,14 @@ import type { PageData } from "./$types";
   .header-background {
     background-color: rgb(var(--bg-color));
     color: rgb(var(--on-color));
-    @apply w-[500px] h-[500px] absolute -z-20 bottom-[10%] rounded-full;
+    @apply absolute bottom-[10%] -z-20 h-[500px] w-[500px] rounded-full;
   }
 
   .header-background div {
-    @apply absolute bottom-[5%] -z-10 transform -translate-x-1/2 left-1/2;
+    @apply absolute bottom-[5%] left-1/2 -z-10 -translate-x-1/2 transform;
   }
 
   .buttons-section {
-    @apply inline-flex justify-between w-full items-center pr-8 pl-4 pt-5;
+    @apply inline-flex w-full items-center justify-between pl-4 pr-8 pt-5;
   }
 </style>

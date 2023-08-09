@@ -1,18 +1,21 @@
 <script lang="ts">
   import Icon from "$lib/elements/Icon.svelte";
   export let id = 0;
-  export let pokename: string | null = null;
-  export let poketype: Type[];
   export let pokemon: Pokemon;
 
+  const pokemontype = pokemon.types;
+  const pokename = pokemon.name;
   function gibberish(bg = true, hover = false, pokeslot = 0) {
     if (bg) {
-      if (hover) return `var(--color-${poketype[pokeslot].type.name}-hover)`;
-      return `var(--color-${poketype[pokeslot].type.name})`;
+      if (hover) return `var(--color-${pokemontype[pokeslot].type.name}-hover)`;
+      return `var(--color-${pokemontype[pokeslot].type.name})`;
     }
 
-    if (hover) return `var(--color-on-${poketype[pokeslot].type.name}-hover)`;
-    return `var(--color-on-${poketype[pokeslot].type.name})`;
+    if (hover) {
+      return `var(--color-on-${pokemontype[pokeslot].type.name}-hover)`;
+    } else {
+      return `var(--color-on-${pokemontype[pokeslot].type.name})`;
+    }
   }
 
   const sprites = pokemon.sprites?.front_default;
@@ -27,27 +30,30 @@
 >
   <section class="info-section">
     <hgroup
-      class="flex-col justify-start items-start flex text-on-surface-variant group-hover:text-[rgb(var(--bg-color))] transition-colors"
+      class="text-on-surface-variant flex flex-col items-start justify-start transition-colors group-hover:text-[rgb(var(--bg-color))]"
     >
-      <a href={`/pokemon/${pokemon.name}`} class="text-title-small group-hover:underline">
+      <a
+        href={`/pokemon/${pokemon.name}`}
+        class="text-title-small group-hover:underline"
+      >
         Nº {id < 100 ? (id < 10 ? `00${id}` : `0${id}`) : id}
       </a>
-      <h1 class="capitalize text-title-large">
+      <h1 class="text-title-large capitalize">
         {pokename}
       </h1>
     </hgroup>
-    <div class="justify-start items-start gap-1 inline-flex w-full">
+    <div class="inline-flex w-full items-start justify-start gap-1">
       <section class="pokepill">
         <div>
           <figure>
-            <Icon name={poketype[0].type.name} />
+            <Icon name={pokemontype[0].type.name} />
           </figure>
           <span>
-            {poketype[0].type.name}
+            {pokemontype[0].type.name}
           </span>
         </div>
       </section>
-      {#if poketype.length > 1}
+      {#if pokemontype.length > 1}
         <section
           style:--bg-color={gibberish(true, false, 1)}
           style:--bg-color-hover={gibberish(true, true, 1)}
@@ -57,10 +63,10 @@
         >
           <div>
             <figure>
-              <Icon name={poketype[1].type.name} />
+              <Icon name={pokemontype[1].type.name} />
             </figure>
             <span>
-              {poketype[1].type.name}
+              {pokemontype[1].type.name}
             </span>
           </div>
         </section>
@@ -71,8 +77,8 @@
     <div>
       <Icon
         fill="#ccc"
-        class="w-[94px] h-[94px]"
-        name={poketype[0].type.name}
+        class="h-[94px] w-[94px]"
+        name={pokemontype[0].type.name}
       />
     </div>
     <figure>
@@ -88,7 +94,7 @@
 
   <button
     on:click={() => console.log("clicked")}
-    class="w-8 h-8 rounded-full backdrop-blur-sm right-2 flex justify-center items-center top-2 bg-surface/30 ring-2 ring-on-surface absolute z-20"
+    class="bg-surface/30 ring-on-surface absolute right-2 top-2 z-20 flex h-8 w-8 items-center justify-center rounded-full ring-2 backdrop-blur-sm"
   >
     <svg
       width="16"
@@ -110,22 +116,22 @@
 
 <style>
   .poke-container {
-    @apply min-w-[403px] min-h-[118px] relative bg-surface-variant rounded-2xl inline-flex;
+    @apply bg-surface-variant relative inline-flex min-h-[118px] min-w-[403px] rounded-2xl;
   }
 
   .image-section {
     background-color: rgb(var(--bg-color));
     color: rgb(var(--on-color));
 
-    @apply transition-colors min-w-[126px] min-h-[102px] rounded-xl flex justify-center relative items-center;
+    @apply relative flex min-h-[102px] min-w-[126px] items-center justify-center rounded-xl transition-colors;
   }
 
   .image-section > div {
-    @apply absolute inset-0 flex items-center justify-center w-full h-full z-0;
+    @apply absolute inset-0 z-0 flex h-full w-full items-center justify-center;
   }
 
   .image-section > figure {
-    @apply max-w-[94px] max-h-[94px] z-10;
+    @apply z-10 max-h-[94px] max-w-[94px];
   }
 
   .image-section img {
@@ -133,21 +139,21 @@
   }
 
   .info-section {
-    @apply flex-col justify-center w-full items-start gap-1 inline-flex p-4 pl-6;
+    @apply inline-flex w-full flex-col items-start justify-center gap-1 p-4 pl-6;
   }
 
   .pokepill {
     background-color: rgb(var(--bg-color));
     color: rgb(var(--on-color));
-    @apply px-1.5 py-1 rounded-full inline-flex w-1/2;
+    @apply inline-flex w-1/2 rounded-full px-1.5 py-1;
   }
 
   .pokepill > div {
-    @apply items-center gap-1.5 inline-flex;
+    @apply inline-flex items-center gap-1.5;
   }
 
   .pokepill figure {
-    @apply rounded-full bg-inverse-surface inline-flex p-1;
+    @apply bg-inverse-surface inline-flex rounded-full p-1;
   }
 
   .pokepill span {

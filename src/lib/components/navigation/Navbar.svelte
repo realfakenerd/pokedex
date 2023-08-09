@@ -1,8 +1,8 @@
 <script>
-    import pokeball from './pokeball.svg';
-    import pokepin from './PokePin.svg';
-    import pokeheart from './PokeHeart.svg';
-    import perfil from './Perfil.svg';
+  import pokeball from "./pokeball.svg";
+  import pokepin from "./PokePin.svg";
+  import pokeheart from "./PokeHeart.svg";
+  import perfil from "./Perfil.svg";
 </script>
 
 <nav>
@@ -11,22 +11,22 @@
     <span>Pokedéx</span>
   </a>
   <a href="pokepn">
-    <img src={pokepin} alt="pokepin"/>
+    <img src={pokepin} alt="pokepin" />
     <span>Regions</span>
   </a>
   <a href="pokepn">
-    <img src={pokeheart} alt="pokeheart"/>
+    <img src={pokeheart} alt="pokeheart" />
     <span>Favorites</span>
   </a>
   <a href="pokepn">
-    <img src={perfil} alt="perfil"/>
+    <img src={perfil} alt="perfil" />
     <span>Profile</span>
   </a>
 </nav>
 
 <style>
   nav {
-    @apply flex w-full py-0 px-8 justify-between items-center border-t bg-surface-variant min-h-[72px] text-label-large text-on-surface-variant;
+    @apply bg-surface-variant text-label-large text-on-surface-variant flex min-h-[72px] w-full items-center justify-between border-t px-8 py-0;
     border-color: #e6e6e6;
   }
 
