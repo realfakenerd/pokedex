@@ -1,9 +1,10 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  export let name = "" as Elements;
+  export let name = "" as Elements | null;
   export let fill = "";
   export let width: number | null = null;
   export let height: number | null = null;
+
   interface Icon {
     box: { w: number; h: number };
     svg: string;
@@ -16,9 +17,15 @@
     },
     svg: "",
   };
+
   onMount(async () => {
-    const imported = await import("./small/index.js");
-    icon = imported.default[name];
+    try {
+      const imported = await import("./index.js");
+      icon = imported.default[name ?? "bug"];
+    } catch (error) {
+      console.error("Error importing icon:", error);
+      icon = { box: { w: 0, h: 0 }, svg: "" };
+    }
   });
 </script>
 

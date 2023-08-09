@@ -1,41 +1,38 @@
-### Want full control over everything in this template?
+# create-svelte
 
-We've created a new project called [**stackmix**](https://github.com/roxiness/stackmix). It's an experimental CLI that let's you pick and mix all features in a Routify template! Get started with `npx stackmix`
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-# Routify Starter
+## Creating a project
 
-Starter template for [Routify](https://github.com/roxiness/routify).
+If you're seeing this, you've probably already done this step. Congrats!
 
-# Get started
+```bash
+# create a new project in the current directory
+npm create svelte@latest
 
-To get started run:
-
-```sh
-mkdir routify-app
-cd routify-app
-npx @roxi/routify init
+# create a new project in my-app
+npm create svelte@latest my-app
 ```
 
-# Scripts
+## Developing
 
-Run with `npm run <command>`, for example `npm run dev`
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-| Command   | Description                                   |
-| --------- | --------------------------------------------- |
-| `dev`     | Development (port 5000)                       |
-| `build`   | Build your app for production!                |
-| `preview` | Preview the built version of your app locally |
+```bash
+npm run dev
 
-# Want a service worker?
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
 
-Checkout [vite-plugin-pwa](http://npmjs.org/vite-plugin-pwa)
+## Building
 
-# Extra Configs
+To create a production version of your app:
 
-We include a few extra configs to help make it easy to ship a Routify project:
+```bash
+npm run build
+```
 
-| Config Path        | Description                                                                                                                                                |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `netlify.toml`     | This is the [Netlify](https://www.netlify.com/) config, you need this when publishing to Netlify                                                           |
-| `vercel.json`      | This is the [Vercel](https://vercel.com/) config, you need this when publishing to Vercel                                                                  |
-| `public/.htaccess` | If you build your site to static using [spank](https://www.npmjs.com/package/spank) you will need this when putting your site on an apache based webserver |
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.

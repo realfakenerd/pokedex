@@ -1,6 +1,6 @@
 <script>
-  import PokeCard from '$lib/components/cards/PokeCard.svelte';
-  import SearchBar from '$lib/components/inputs/Search.svelte';
+  import PokeCard from "$lib/components/cards/PokeCard.svelte";
+  import SearchBar from "$lib/components/inputs/Search.svelte";
   export let data;
 
   const { pokemones } = data;
