@@ -4,6 +4,7 @@
 
 	export let data: PageData;
 	const { pokemon } = data;
+	const id = pokemon.id;
 
 	console.log(pokemon);
 	const icon = pokemon.sprites.versions?.['generation-vii'].icons.front_default;
@@ -65,6 +66,13 @@
 		/>
 	</figure>
 </header>
+
+<section>
+	<hgroup>
+		<h1 class="text-headline-large capitalize">{pokemon.name}</h1>
+		<h2>Nº {id < 100 ? (id < 10 ? `00${id}` : `0${id}`) : id}</h2>
+	</hgroup>
+</section>
 
 <style>
 	header {

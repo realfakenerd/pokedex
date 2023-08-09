@@ -19,7 +19,7 @@
 		{#await pokemon}
 			<div class="rounded-xl animate-pulse bg-surface-variant min-w-[403px] min-h-[118px]" />
 		{:then pokemon}
-			<PokeCard {pokemon} id={i + 1} />
+			<PokeCard pokename={pokemon.name} pokemontypes={pokemon.types} sprites={pokemon.sprites.front_default} id={i + 1} />
 		{/await}
 	{/each}
 </section>

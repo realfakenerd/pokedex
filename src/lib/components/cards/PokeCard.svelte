@@ -3,25 +3,23 @@
 	import type { Pokemon } from '$lib/lib';
 	import { gibberish } from '$lib/utils';
 	export let id = 0;
-	export let pokemon: Pokemon;
-	const pokemontype = pokemon.types[0].type.name;
-	const pokename = pokemon.name;
-
-	const sprites = pokemon.sprites?.front_default;
+	export let pokemontypes: Pokemon['types'];
+	export let pokename: string;
+	export let sprites: Pokemon['sprites']['front_default'];
 </script>
 
 <section
-	style:--bg-color={gibberish(pokemontype)}
-	style:--bg-color-hover={gibberish(pokemontype, true, true)}
-	style:--on-color={gibberish(pokemontype, false)}
-	style:--on-color-hover={gibberish(pokemontype, false, true)}
+	style:--bg-color={gibberish(pokemontypes[0].type.name)}
+	style:--bg-color-hover={gibberish(pokemontypes[0].type.name, true, true)}
+	style:--on-color={gibberish(pokemontypes[0].type.name, false)}
+	style:--on-color-hover={gibberish(pokemontypes[0].type.name, false, true)}
 	class="poke-container group"
 >
 	<section class="info-section">
 		<hgroup
 			class="text-on-surface-variant flex flex-col items-start justify-start transition-colors group-hover:text-[rgb(var(--bg-color))]"
 		>
-			<a href={`/pokemon/${pokemon.name}`} class="text-title-small group-hover:underline">
+			<a href={`/pokemon/${pokename}`} class="text-title-small group-hover:underline">
 				Nº {id < 100 ? (id < 10 ? `00${id}` : `0${id}`) : id}
 			</a>
 			<h1 class="text-title-large capitalize">
@@ -32,27 +30,27 @@
 			<section class="pokepill">
 				<div>
 					<figure>
-						<Icon name={pokemontype} />
+						<Icon name={pokemontypes[0].type.name} />
 					</figure>
 					<span>
-						{pokemontype}
+						{pokemontypes[0].type.name}
 					</span>
 				</div>
 			</section>
-			{#if pokemon.types.length > 1}
+			{#if pokemontypes.length > 1}
 				<section
-					style:--bg-color={gibberish(pokemon.types[1].type.name, true, false)}
-					style:--bg-color-hover={gibberish(pokemon.types[1].type.name, true, true)}
-					style:--on-color={gibberish(pokemon.types[1].type.name, false, false)}
-					style:--on-color-hover={gibberish(pokemon.types[1].type.name, false, true)}
+					style:--bg-color={gibberish(pokemontypes[1].type.name, true, false)}
+					style:--bg-color-hover={gibberish(pokemontypes[1].type.name, true, true)}
+					style:--on-color={gibberish(pokemontypes[1].type.name, false, false)}
+					style:--on-color-hover={gibberish(pokemontypes[1].type.name, false, true)}
 					class="pokepill"
 				>
 					<div>
 						<figure>
-							<Icon name={pokemon.types[1]?.type.name} />
+							<Icon name={pokemontypes[1].type.name} />
 						</figure>
 						<span>
-							{pokemon.types[1]?.type.name}
+							{pokemontypes[1].type.name}
 						</span>
 					</div>
 				</section>
@@ -61,7 +59,7 @@
 	</section>
 	<section class="image-section">
 		<div>
-			<Icon fill="#ccc" class="h-[94px] w-[94px]" name={pokemontype} />
+			<Icon fill="#ccc" class="h-[94px] w-[94px]" name={pokemontypes[0].type.name} />
 		</div>
 		<figure>
 			<img width="256" height="256" loading="lazy" src={sprites} alt={pokename} />
@@ -69,7 +67,6 @@
 	</section>
 
 	<button
-		on:click={() => console.log('clicked')}
 		class="bg-surface/30 ring-on-surface absolute right-2 top-2 z-20 flex h-8 w-8 items-center justify-center rounded-full ring-2 backdrop-blur-sm"
 	>
 		<svg
