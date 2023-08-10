@@ -17,7 +17,7 @@
 <section class="my-2 flex flex-col gap-2 px-2">
 	{#each pokemones.results as pokemon, i (i)}
 		{#await pokemon}
-			<div class="rounded-xl animate-pulse bg-surface-variant min-w-[403px] min-h-[118px]" />
+			<div class="rounded-2xl animate-pulse bg-surface-variant min-w-[368px] min-h-[120px]" />
 		{:then pokemon}
 			<PokeCard pokename={pokemon.name} pokemontypes={pokemon.types} sprites={pokemon.sprites.front_default} id={i + 1} />
 		{/await}

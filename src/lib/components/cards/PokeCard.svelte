@@ -1,7 +1,9 @@
 <script lang="ts">
 	import Icon from '$lib/elements/Icon.svelte';
-	import type { Pokemon } from '$lib/lib';
 	import { gibberish } from '$lib/utils';
+	import { cubicOut } from 'svelte/easing';
+	import { fly } from 'svelte/transition';
+	import PokePill from './PokePill.svelte';
 	export let id = 0;
 	export let pokemontypes: Pokemon['types'];
 	export let pokename: string;
@@ -9,6 +11,7 @@
 </script>
 
 <section
+	in:fly={{ y: 5, duration:200, easing: cubicOut }}
 	style:--bg-color={gibberish(pokemontypes[0].type.name)}
 	style:--bg-color-hover={gibberish(pokemontypes[0].type.name, true, true)}
 	style:--on-color={gibberish(pokemontypes[0].type.name, false)}
@@ -27,33 +30,17 @@
 			</h1>
 		</hgroup>
 		<div class="inline-flex w-full items-start justify-start gap-1">
-			<section class="pokepill">
-				<div>
-					<figure>
-						<Icon name={pokemontypes[0].type.name} />
-					</figure>
-					<span>
-						{pokemontypes[0].type.name}
-					</span>
-				</div>
-			</section>
+			<PokePill class="w-1/2 px-1.5 py-1" pokemontypes={pokemontypes[0].type.name} />
 			{#if pokemontypes.length > 1}
-				<section
+				<div
+					style="display: contents;"
 					style:--bg-color={gibberish(pokemontypes[1].type.name, true, false)}
 					style:--bg-color-hover={gibberish(pokemontypes[1].type.name, true, true)}
 					style:--on-color={gibberish(pokemontypes[1].type.name, false, false)}
 					style:--on-color-hover={gibberish(pokemontypes[1].type.name, false, true)}
-					class="pokepill"
 				>
-					<div>
-						<figure>
-							<Icon name={pokemontypes[1].type.name} />
-						</figure>
-						<span>
-							{pokemontypes[1].type.name}
-						</span>
-					</div>
-				</section>
+					<PokePill class="w-1/2 px-1.5 py-1" pokemontypes={pokemontypes[1].type.name} />
+				</div>
 			{/if}
 		</div>
 	</section>
@@ -96,7 +83,7 @@
 		background-color: rgb(var(--bg-color));
 		color: rgb(var(--on-color));
 
-		@apply relative flex min-h-[102px] min-w-[126px] items-center justify-center rounded-xl transition-colors;
+		@apply relative flex min-h-[102px] min-w-[126px] items-center justify-center rounded-l-xl rounded-r-2xl transition-colors;
 	}
 
 	.image-section > div {
@@ -113,23 +100,5 @@
 
 	.info-section {
 		@apply inline-flex w-full flex-col items-start justify-center gap-1 p-4 pl-6;
-	}
-
-	.pokepill {
-		background-color: rgb(var(--bg-color));
-		color: rgb(var(--on-color));
-		@apply inline-flex w-1/2 rounded-full px-1.5 py-1;
-	}
-
-	.pokepill > div {
-		@apply inline-flex items-center gap-1.5;
-	}
-
-	.pokepill figure {
-		@apply bg-inverse-surface inline-flex rounded-full p-1;
-	}
-
-	.pokepill span {
-		@apply text-label-small capitalize;
 	}
 </style>

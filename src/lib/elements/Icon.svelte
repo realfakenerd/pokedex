@@ -1,10 +1,9 @@
 <script lang="ts">
-	import type { Elements } from '$lib/lib.js';
 	import { onMount } from 'svelte';
 	export let name = '' as Elements | null;
 	export let fill = '';
-	export let width: number | null = null;
-	export let height: number | null = null;
+	export let width: number = 18;
+	export let height: number = 18;
 
 	interface Icon {
 		box: { w: number; h: number };
@@ -33,8 +32,8 @@
 <svg
 	style:--fill-color={fill}
 	class={$$props.class}
-	height={height ?? icon?.box.h}
-	width={width ?? icon?.box.w}
+	{height}
+	{width}
 	viewBox="0 0 {icon?.box.w} {icon?.box.h}"
 >
 	{@html icon?.svg}
