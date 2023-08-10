@@ -130,11 +130,6 @@ interface NameAPIResource<T = string, Endpoint = string> {
 	url: `https://pokeapi.co/api/v2/${Endpoint}/`;
 }
 
-interface Species {
-	name: Elements;
-	url: string;
-}
-
 /** A list of game indices relevent to Pokémon item by generation. */
 interface VersionGameIndex {
 	/** The internal id of an API resource within game data. */
@@ -193,17 +188,20 @@ interface Versions {
 
 interface Sprites {
 	/** The default depiction of this Pokémon from the front in battle. */
+	front_default?: string;
+	/**	The shiny depiction of this Pokémon from the front in battle. */
+	front_shiny?: string;
+	/** The female depiction of this Pokémon from the front in battle. */
+	front_female?: string;
+	/**  */
+	front_shiny_female?: string;
+	
 	back_default?: string;
 	back_female?: string;
 	back_shiny?: string;
 	back_shiny_female?: string;
-	front_default?: string;
-	front_female?: string;
-	front_shiny?: string;
-	front_shiny_female?: string;
 	other?: Other;
 	versions?: Versions;
-	animated?: Sprites;
 }
 
 interface GenerationI {

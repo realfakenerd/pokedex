@@ -3,7 +3,7 @@ import type { PageLoad } from './$types';
 
 export const load = (async ({ params, fetch }) => {
 	try {
-		const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${params.id}`);
+		const res = await fetch(`/api/pokemon/${params.id}`);
 		const data = (await res.json()) as Pokemon;
 		return {
 			pokemon: data,
