@@ -1,12 +1,10 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import PokePill from '$lib/components/cards/PokePill.svelte';
 	import Icon from '$lib/elements/Icon.svelte';
 	import { gibberish } from '$lib/utils';
-	import { onMount } from 'svelte';
-	import type { PageData } from './$types';
-	import PokePill from '$lib/components/cards/PokePill.svelte';
 	import { fade } from 'svelte/transition';
-	import { json } from '@sveltejs/kit';
+	import type { PageData } from './$types';
 
 	export let data: PageData;
 	const { pokemon, streamed } = data;

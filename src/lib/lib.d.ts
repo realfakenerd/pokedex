@@ -25,31 +25,109 @@ type Elements =
 	| 'poison'
 	| 'flying';
 
+/**
+ * ### Pokémon
+ * Pokémon are the creatures that inhabit the world of the Pokémon games. 
+ * They can be caught using Pokéballs and trained by battling with other Pokémon. 
+ * Each Pokémon belongs to a specific species but may take on a variant which 
+ * makes it differ from other Pokémon of the same species, such as base 
+ * stats, available abilities and typings. See Bulbapedia for greater detail.
+ */
 interface Pokemon {
-	abilities: Ability[];
-	base_experience: number;
-	forms: Species[];
-	game_indices: GameIndex[];
-	height: number;
-	held_items: any[];
+	/** The identifier for this resource. */
 	id: number;
-	is_default: boolean;
-	location_area_encounters: string;
-	moves: Move[];
+
+	/** The name for this resource. */
 	name: string;
-	order: number;
-	past_types: any[];
-	species: Species;
-	sprites: Sprites;
-	stats: Stat[];
-	types: Type[];
+
+	/** The base experience gained for defeating this Pokémon. */
+	base_experience: number;
+
+	/** The height of this Pokémon in decimetres. */
+	height: number;
+
+	/**	The weight of this Pokémon in hectograms. */
 	weight: number;
+
+	/** Set for exactly one Pokémon used as the default for each species. */
+	is_default: boolean;
+
+	/** Order for sorting. Almost national order, except families are grouped together. */
+	order: number;
+
+	abilities: PokemonAbility[];
+
+	/** A list of forms this Pokémon can take on. */
+	forms: NameAPIResource<string, 'pokemon-form/:id'>[];
+
+	/** A list of game indices relevent to Pokémon item by generation. */
+	game_indices: VersionGameIndex[];
+
+	/** A list of items this Pokémon may be holding when encountered. */
+	held_items: PokemonHeldItem[];
+
+	/** A link to a list of location areas, as well as encounter details pertaining to specific versions. */
+	location_area_encounters: `https://pokeapi.co/api/v2/pokemon/${number}/encounters`;
+
+	/** A list of moves along with learn methods and level details pertaining to specific version groups. */
+	moves: PokemonMove[];
+
+	/** A list of details showing types this pokémon had in previous generations */
+	past_types: PokemonTypePast[];
+
+	/**	The species this Pokémon belongs to. */
+	species: NameAPIResource;
+
+	/**
+	 * A set of sprites used to depict this Pokémon in the game.
+	 * A visual representation of the various sprites can be
+	 * found at PokeAPI/sprites
+	 */
+	sprites: Sprites;
+
+	/** A list of base stat values for this Pokémon. */
+	stats: PokemonStat[];
+
+	/** A list of details showing types this Pokémon has. */
+	types: PokemonType[];
 }
 
-interface Ability {
-	ability: Species;
+interface PokemonTypePast {
+	/** The last generation in which the referenced pokémon had the listed types. */
+	generation: NameAPIResource;
+	/**	The types the referenced pokémon had up to and including the listed generation. */
+	types: PokemonType[];
+}
+
+interface PokemonHeldItem {
+	/** The item the referenced Pokémon holds. */
+	item: NameAPIResource;
+	/** The details of the different versions in which the item is held. */
+	version_details: PokemonHeldItemVersion;
+}
+
+interface PokemonHeldItemVersion {
+	/** The version in which the item is held. */
+	version: NameAPIResource;
+	/** How often the item is held. */
+	rarity: number;
+}
+
+/** A list of abilities this Pokémon could potentially have. */
+interface PokemonAbility {
+	/** Whether or not this is a hidden ability. */
 	is_hidden: boolean;
+	/** The slot this ability occupies in this Pokémon species. */
 	slot: number;
+	/** The ability the Pokémon may have. */
+	ability: NameAPIResource<Elements, 'ability/:id'>;
+}
+
+interface NameAPIResource<T = string, Endpoint = string> {
+	/**	The name of the referenced resource. */
+	name: T;
+	/** The URL of the referenced resource. */
+	url: `https://pokeapi.co/api/v2/${Endpoint}/`;
 }
 
 interface Species {
@@ -57,20 +135,39 @@ interface Species {
 	url: string;
 }
 
-interface GameIndex {
+/** A list of game indices relevent to Pokémon item by generation. */
+interface VersionGameIndex {
+	/** The internal id of an API resource within game data. */
 	game_index: number;
-	version: Species;
+	/** The version relevent to this game index. */
+	version: NameAPIResource<string, 'version/:id'>;
 }
 
-interface Move {
-	move: Species;
-	version_group_details: VersionGroupDetail[];
+/**
+ * ### Moves
+ * Moves are the skills of Pokémon in battle.
+ * In battle, a Pokémon uses one move each turn.
+ * Some moves (including those learned by Hidden Machine) can be used
+ * outside of battle as well, usually for the purpose of removing
+ * obstacles or exploring new areas.
+ */
+interface PokemonMove {
+	/** The move the Pokémon can learn. */
+	move: NameAPIResource;
+
+	/** The details of the version in which the Pokémon can learn the move. */
+	version_group_details: PokemonMoveVersion[];
 }
 
-interface VersionGroupDetail {
+interface PokemonMoveVersion {
+	/** The minimum level to learn the move. */
 	level_learned_at: number;
-	move_learn_method: Species;
-	version_group: Species;
+
+	/** The method by which the move is learned. */
+	move_learn_method: NameAPIResource;
+
+	/** The version group in which the move is learned. */
+	version_group: NameAPIResource;
 }
 
 interface GenerationV {
@@ -95,6 +192,7 @@ interface Versions {
 }
 
 interface Sprites {
+	/** The default depiction of this Pokémon from the front in battle. */
 	back_default?: string;
 	back_female?: string;
 	back_shiny?: string;
@@ -185,15 +283,20 @@ interface Other {
 	'official-artwork': OfficialArtwork;
 }
 
-interface Stat {
-	base_stat: number;
+interface PokemonStat {
+	/** The effort points (EV) the Pokémon has in the stat. */
 	effort: number;
-	stat: Species;
+	/** The stat the Pokémon has. */
+	stat: NameAPIResource;
+	/**	The base value of the stat. */
+	base_stat: number;
 }
 
-interface Type {
+interface PokemonType {
+	/** The order the Pokémon's types are listed in. */
 	slot: number;
-	type: Species;
+	/** The type the referenced Pokémon has. */
+	type: NameAPIResource<Elements>;
 }
 
 interface Characteristic {
