@@ -20,8 +20,12 @@
 </script>
 
 <svelte:head>
-	<title>{pokemon.name.toUpperCase()}</title>
 	<link rel="shortcut icon" href={icon} />
+	<title>{pokemon.name.toUpperCase()}</title>
+	<meta property="twitter:card" content="summary_large_image" />
+	<meta property="og:title" content={pokemon.name.toUpperCase()} />
+	<meta property="description" content="{pokemon.name} name" />
+	<meta property="og:image" content={pokemon.sprites.other?.['official-artwork'].front_default} />
 </svelte:head>
 
 <div

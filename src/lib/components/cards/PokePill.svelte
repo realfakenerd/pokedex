@@ -7,9 +7,7 @@
 
 <section
 	style:--bg-color={gibberish(pokemontypes, true, false)}
-	style:--bg-color-hover={gibberish(pokemontypes, true, true)}
 	style:--on-color={gibberish(pokemontypes, false, false)}
-	style:--on-color-hover={gibberish(pokemontypes, false, true)}
 	class="pokepill {$$props.class ?? ''}"
 >
 	<figure>

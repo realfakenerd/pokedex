@@ -13,9 +13,7 @@
 <section
 	in:fly={{ y: 5, duration: 200, easing: cubicOut }}
 	style:--bg-color={gibberish(pokemontypes[0].type.name)}
-	style:--bg-color-hover={gibberish(pokemontypes[0].type.name, true, true)}
 	style:--on-color={gibberish(pokemontypes[0].type.name, false)}
-	style:--on-color-hover={gibberish(pokemontypes[0].type.name, false, true)}
 	class="poke-container group"
 >
 	<section class="info-section">
@@ -25,9 +23,9 @@
 			<a href={`/pokemon/${pokename}`} class="text-title-small group-hover:underline">
 				Nº {id < 100 ? (id < 10 ? `00${id}` : `0${id}`) : id}
 			</a>
-			<h1 class="text-title-large capitalize">
+			<a href={`/pokemon/${pokename}`} class="text-title-large capitalize">
 				{pokename}
-			</h1>
+			</a>
 		</hgroup>
 		<div class="inline-flex w-full items-start justify-start gap-1">
 			<PokePill class="w-1/2 px-1.5 py-1" pokemontypes={pokemontypes[0].type.name} />
