@@ -25,6 +25,8 @@
 	<meta property="twitter:card" content="summary_large_image" />
 	<meta property="og:title" content={pokemon.name.toUpperCase()} />
 	<meta property="description" content="{pokemon.name} name" />
+	<meta property="og:description" content="{pokemon.name} name" />
+	<meta property="og:url" content='https://supremepokedex.vercel.app/pokemon/{pokemon.name}'>
 	<meta property="og:image" content={pokemon.sprites.other?.['official-artwork'].front_default} />
 </svelte:head>
 
