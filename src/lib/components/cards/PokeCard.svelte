@@ -11,7 +11,7 @@
 </script>
 
 <section
-	in:fly={{ y: 5, duration:200, easing: cubicOut }}
+	in:fly={{ y: 5, duration: 200, easing: cubicOut }}
 	style:--bg-color={gibberish(pokemontypes[0].type.name)}
 	style:--bg-color-hover={gibberish(pokemontypes[0].type.name, true, true)}
 	style:--on-color={gibberish(pokemontypes[0].type.name, false)}
@@ -32,24 +32,26 @@
 		<div class="inline-flex w-full items-start justify-start gap-1">
 			<PokePill class="w-1/2 px-1.5 py-1" pokemontypes={pokemontypes[0].type.name} />
 			{#if pokemontypes.length > 1}
-				<div
-					style="display: contents;"
-					style:--bg-color={gibberish(pokemontypes[1].type.name, true, false)}
-					style:--bg-color-hover={gibberish(pokemontypes[1].type.name, true, true)}
-					style:--on-color={gibberish(pokemontypes[1].type.name, false, false)}
-					style:--on-color-hover={gibberish(pokemontypes[1].type.name, false, true)}
-				>
-					<PokePill class="w-1/2 px-1.5 py-1" pokemontypes={pokemontypes[1].type.name} />
-				</div>
+				<PokePill class="w-1/2 px-1.5 py-1" pokemontypes={pokemontypes[1].type.name} />
 			{/if}
 		</div>
 	</section>
 	<section class="image-section">
 		<div>
-			<Icon fill="#ccc" class="h-[94px] w-[94px]" name={pokemontypes[0].type.name} />
+			<Icon
+				fill="rgb(var(--color-surface-variant))"
+				class="h-[94px] w-[94px]"
+				name={pokemontypes[0].type.name}
+			/>
 		</div>
 		<figure>
-			<img width="256" height="256" loading="lazy" src={sprites} alt={pokename} />
+			<img
+				width="256"
+				height="256"
+				loading={id <= 6 ? 'eager' : 'lazy'}
+				src={sprites}
+				alt={pokename}
+			/>
 		</figure>
 	</section>
 

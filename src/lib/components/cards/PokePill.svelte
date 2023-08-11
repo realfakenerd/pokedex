@@ -1,30 +1,30 @@
 <script lang="ts">
 	import Icon from '$lib/elements/Icon.svelte';
-	import { fade } from 'svelte/transition';
+	import { gibberish } from '$lib/utils';
 
 	export let pokemontypes: Elements;
 </script>
 
-<section in:fade={{ duration: 300, delay: 250 }} class="pokepill {$$props.class??''}">
-	<div>
-		<figure>
-			<Icon name={pokemontypes} />
-		</figure>
-		<span>
-			{pokemontypes}
-		</span>
-	</div>
+<section
+	style:--bg-color={gibberish(pokemontypes, true, false)}
+	style:--bg-color-hover={gibberish(pokemontypes, true, true)}
+	style:--on-color={gibberish(pokemontypes, false, false)}
+	style:--on-color-hover={gibberish(pokemontypes, false, true)}
+	class="pokepill {$$props.class ?? ''}"
+>
+	<figure>
+		<Icon name={pokemontypes} />
+	</figure>
+	<span>
+		{pokemontypes}
+	</span>
 </section>
 
 <style>
 	.pokepill {
 		background-color: rgb(var(--bg-color));
 		color: rgb(var(--on-color));
-		@apply inline-flex rounded-full ;
-	}
-
-	.pokepill > div {
-		@apply inline-flex items-center gap-2;
+		@apply inline-flex rounded-full items-center gap-2;
 	}
 
 	.pokepill figure {
