@@ -1,27 +1,75 @@
 {
+	"$schema": "https://json.schemastore.org/web-manifest-combined.json",
 	"name": "The Supreme Pokedex",
 	"short_name": "Pokedex",
 	"lang": "pt-BR",
-	"id": "PokePokeDex",
+	"id": "Poke?PokeDex",
 	"start_url": "/?homescreen=1",
 	"scope": "/",
 	"background_color": "#1b1b1f",
 	"theme_color": "#163da4",
 	"description": "The most super supreme pokedex",
 	"display": "fullscreen",
-	"orientation": "any",
+	"launch_handler": {
+		"client_mode": "navigate-existing"
+	},
+	"orientation": "portrait",
+	"categories": ["Entertainment", "Games"],
+	"shortcuts": [
+		{
+			"name": "Perfil",
+			"short_name": "Perfil",
+			"url": "/perfil",
+			"description": "Perfil tab",
+			"icons": [
+				{
+					"src": "perfil.svg",
+					"type": "image/svg+xml",
+					"sizes": "96x96"
+				}
+			]
+		},
+		{
+			"name": "Regions",
+			"short_name": "Regions",
+			"url": "/regions",
+			"description": "Regions tab",
+			"icons": [
+				{
+					"src": "pokepin.svg",
+					"type": "image/svg+xml",
+					"sizes": "96x96"
+				}
+			]
+		},
+		{
+			"name": "Favorites",
+			"short_name": "Favorites",
+			"url": "/favorites",
+			"description": "Favorites tab",
+			"icons": [
+				{
+					"src": "pokeheart.svg",
+					"type": "image/svg+xml",
+					"sizes": "96x96"
+				}
+			]
+		}
+	],
 	"icons": [
 		{
 			"src": "android-chrome-192x192.png",
 			"sizes": "192x192",
 			"type": "image/png",
-			"maskable": "maskable"
+			"maskable": true,
+			"purpose": "any"
 		},
 		{
 			"src": "android-chrome-512x512.png",
 			"sizes": "512x512",
 			"type": "image/png",
-			"maskable": "maskable"
+			"maskable": true,
+			"purpose": "any"
 		}
 	]
 }
