@@ -5,6 +5,8 @@
 	export let data: PageData;
 
 	const { pokemones } = data;
+
+	let searchVal = ''
 </script>
 
 <svelte:head>
@@ -12,7 +14,7 @@
 	<title>Pokédex</title>
 </svelte:head>
 
-<SearchBar />
+<SearchBar on:keyup={() => {console.log(searchVal)}}/>
 
 <section class="my-2 flex flex-col gap-2 px-2">
 	{#each pokemones.results as pokemon, i (i)}
