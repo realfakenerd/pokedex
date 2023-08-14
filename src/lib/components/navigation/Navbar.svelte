@@ -7,19 +7,19 @@
 
 <nav>
 	<a href="/">
-		<img src={pokeball} alt="pokeball icon" />
+		<img width="26" height="26" src={pokeball} alt="pokeball icon" />
 		<span>Pokedéx</span>
 	</a>
 	<a href="pokepn">
-		<img src={pokepin} alt="pokepin" />
+		<img width="26" height="26" src={pokepin} alt="pokepin" />
 		<span>Regions</span>
 	</a>
 	<a href="pokepn">
-		<img src={pokeheart} alt="pokeheart" />
+		<img width="26" height="26" src={pokeheart} alt="pokeheart" />
 		<span>Favorites</span>
 	</a>
 	<a href="pokepn">
-		<img src={perfil} alt="perfil" />
+		<img width="26" height="26" src={perfil} alt="perfil" />
 		<span>Profile</span>
 	</a>
 </nav>

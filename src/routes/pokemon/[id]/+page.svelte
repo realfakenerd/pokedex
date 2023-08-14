@@ -14,7 +14,7 @@
 	let naturalWidth: number;
 	let naturalHeight: number;
 
-	const icon = pokemon.sprites.versions?.['generation-vii'].icons.front_default;
+	const icon = pokemon.sprites?.versions?.['generation-vii'].icons.front_default;
 	const pokemontypes = pokemon.types[0].type.name;
 
 	console.log(pokemon);
@@ -29,6 +29,11 @@
 	<meta property="og:description" content="{pokemon.name} name" />
 	<meta property="og:url" content="https://supremepokedex.vercel.app/pokemon/{pokemon.name}" />
 	<meta property="og:image" content={pokemon.sprites.other?.['official-artwork'].front_default} />
+	<link
+		rel="prefetch"
+		as="image"
+		href="https://projectpokemon.org/images/normal-sprite/{pokemon.name}.gif"
+	/>
 </svelte:head>
 
 <div
@@ -76,7 +81,12 @@
 
 		<section class="header-background">
 			<div>
-				<Icon width={204} height={204} fill="#ccc" name={pokemon.types[0].type.name} />
+				<Icon
+					fill="rgb(var(--color-surface))"
+					width={204}
+					height={204}
+					name={pokemon.types[0].type.name}
+				/>
 			</div>
 		</section>
 		<figure in:fade={{ duration: 200, delay: 200 }}>
@@ -148,7 +158,10 @@
 					>
 				</div>
 			</div>
-			<section style="grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));" class="grid gap-2">
+			<section
+				style="grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));"
+				class="grid gap-2"
+			>
 				<PokeStat stats={pokemon.stats[0]} />
 				<PokeStat stats={pokemon.stats[1]} />
 				<PokeStat stats={pokemon.stats[2]} />
@@ -179,7 +192,7 @@
 	.header-background div {
 		@apply absolute bottom-[5%] left-1/2 -z-10 -translate-x-1/2 transform;
 	}
-
+	
 	.buttons-section {
 		@apply inline-flex w-full items-center justify-between pl-4 pr-8 pt-5;
 	}

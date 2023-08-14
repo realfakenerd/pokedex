@@ -47,6 +47,7 @@
 				width="256"
 				height="256"
 				loading={id <= 6 ? 'eager' : 'lazy'}
+				decoding="async"
 				src={sprites}
 				alt={pokename}
 			/>
