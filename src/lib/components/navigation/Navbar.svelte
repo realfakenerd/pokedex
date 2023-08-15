@@ -20,7 +20,7 @@
 		>
 		<span>Pokedéx</span>
 	</a>
-	<a href="pokepn">
+	<a href="regions">
 		<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none"
 			><path fill="#fff" d="M13 25C4 17 4 15 3 11h20c0 5-5 11-10 14Z" /><path
 				fill="#CD3131"

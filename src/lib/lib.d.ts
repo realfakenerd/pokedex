@@ -2,7 +2,7 @@ interface PokemonList {
 	count: number;
 	next: string;
 	previous: null;
-	results: Promise<Pokemon>[];
+	results: Pokemon[];
 }
 
 type Elements =
@@ -27,10 +27,10 @@ type Elements =
 
 /**
  * ### Pokémon
- * Pokémon are the creatures that inhabit the world of the Pokémon games. 
- * They can be caught using Pokéballs and trained by battling with other Pokémon. 
- * Each Pokémon belongs to a specific species but may take on a variant which 
- * makes it differ from other Pokémon of the same species, such as base 
+ * Pokémon are the creatures that inhabit the world of the Pokémon games.
+ * They can be caught using Pokéballs and trained by battling with other Pokémon.
+ * Each Pokémon belongs to a specific species but may take on a variant which
+ * makes it differ from other Pokémon of the same species, such as base
  * stats, available abilities and typings. See Bulbapedia for greater detail.
  */
 interface Pokemon {
@@ -195,7 +195,7 @@ interface Sprites {
 	front_female?: string;
 	/**  */
 	front_shiny_female?: string;
-	
+
 	back_default?: string;
 	back_female?: string;
 	back_shiny?: string;
@@ -318,4 +318,18 @@ interface Language {
 interface HighestStat {
 	name: string;
 	url: string;
+}
+
+interface Regions {
+	/** The total number of resources available from this API. */
+	count: number;
+
+	/** The URL for the next page in the list. */
+	next?: string;
+
+	/** The URL for the previous page in the list. */
+	previous?: string;
+
+	/**	A list of named API resources. */
+	results: NameAPIResource[];
 }

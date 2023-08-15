@@ -1,0 +1,1 @@
+export {default as PokeWorker} from './pesquisa.worker?worker';

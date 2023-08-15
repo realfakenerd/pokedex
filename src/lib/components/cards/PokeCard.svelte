@@ -7,7 +7,6 @@
 	export let id = 0;
 	export let pokemontypes: Pokemon['types'];
 	export let pokename: string;
-	export let sprites: Pokemon['sprites']['front_default'];
 </script>
 
 <section
@@ -18,7 +17,7 @@
 >
 	<section class="info-section">
 		<hgroup
-			class="text-on-surface-variant flex flex-col items-start justify-start transition-colors group-hover:text-[rgb(var(--bg-color))]"
+			class="flex flex-col items-start justify-start transition-colors group-hover:text-[rgb(var(--bg-color))]"
 		>
 			<a href={`/pokemon/${pokename}`} class="text-title-small group-hover:underline">
 				Nº {id < 100 ? (id < 10 ? `00${id}` : `0${id}`) : id}
@@ -48,7 +47,7 @@
 				height="256"
 				loading={id <= 6 ? 'eager' : 'lazy'}
 				decoding="async"
-				src={sprites}
+				src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
 				alt={pokename}
 			/>
 		</figure>
