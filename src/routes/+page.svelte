@@ -10,23 +10,8 @@
 	const { pokemones } = data;
 
 	let value = '';
-	let worker: Worker | null = null;
 
-	let list = pokemones;
-
-	onMount(() => {
-		worker = new PokeWorker();
-		worker.onmessage = ({ data }) => {
-			list = data;
-		};
-
-		return () => worker?.terminate();
-	});
-
-	$: worker?.postMessage({
-		value,
-		pokemones
-	});
+	$: pesquisa = (val) =>  val.name.includes(value.toLowerCase().trim());
 </script>
 
 <svelte:head>
@@ -37,7 +22,7 @@
 <SearchBar bind:value />
 
 <section class="my-2 flex flex-col gap-2 px-2">
-	{#each list as pokemon, i (i)}
+	{#each pokemones.filter(pesquisa) as pokemon, i (i)}
 		<PokeCard pokename={pokemon.name} pokemontypes={pokemon.types} id={i + 1} />
 	{:else}
 		<div>try catching another pokemon</div>
