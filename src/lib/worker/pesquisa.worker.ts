@@ -9,8 +9,8 @@ interface MessageData {
     pokemones: PokemonListDef[]
 }
 
-addEventListener('message', (e: MessageEvent<MessageData>) => {
-    const {value, pokemones} = e.data;
+addEventListener('message', ({data}: MessageEvent<MessageData>) => {
+    const {value, pokemones} = data;
     const res = pokemones.filter(val => val.name.includes(value.toLowerCase().trim()))
 
     postMessage(res);

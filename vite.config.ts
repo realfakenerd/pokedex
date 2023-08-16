@@ -21,6 +21,9 @@ export default defineConfig({
 		reportCompressedSize: false,
 		target: 'esnext'
 	},
+	define: {
+		'process.env': {}
+	},
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	}
