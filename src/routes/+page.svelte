@@ -1,8 +1,6 @@
 <script lang="ts">
 	import PokeCard from '$lib/components/cards/PokeCard.svelte';
 	import SearchBar from '$lib/components/inputs/Search.svelte';
-	import { PokeWorker } from '$lib/worker';
-	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -11,7 +9,10 @@
 
 	let value = '';
 
-	$: pesquisa = (val) =>  val.name.includes(value.toLowerCase().trim());
+	$: pesquisa = (val: PokemonList) => {
+		if (value) return val.name.includes(value.toLowerCase().trim());
+		return true;
+	};
 </script>
 
 <svelte:head>
