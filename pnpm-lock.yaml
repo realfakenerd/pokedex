@@ -35,6 +35,12 @@ devDependencies:
   cssnano:
     specifier: ^6.0.1
     version: 6.0.1(postcss@8.4.27)
+  devalue:
+    specifier: ^4.3.2
+    version: 4.3.2
+  dexie:
+    specifier: 4.0.1-alpha.25
+    version: 4.0.1-alpha.25
   eslint:
     specifier: ^8.47.0
     version: 8.47.0
@@ -1337,6 +1343,10 @@ packages:
 
   /devalue@4.3.2:
     resolution: {integrity: sha512-KqFl6pOgOW+Y6wJgu80rHpo2/3H07vr8ntR9rkkFIRETewbf5GaYYcakYfiKz89K+sLsuPkQIZaXDMjUObZwWg==}
+    dev: true
+
+  /dexie@4.0.1-alpha.25:
+    resolution: {integrity: sha512-udAExYYfJaC6IzVC+ygHdlWYoYxhwYHtiITkthGgSH7dh2FBk3qqDGkJ/Mn2lfxsmATcq9qJDUjyO7yWOo/ZPA==}
     dev: true
 
   /didyoumean@1.2.2:

@@ -1,8 +1,28 @@
-interface PokemonList {
+/**
+ * Calling any API endpoint without a resource ID or name will 
+ * return a paginated list of available resources for that API. 
+ * 
+ * By default, a list "page" will contain up to 20 resources.
+ * 
+ * If you would like to change this just add a 'limit' query 
+ * parameter to the GET request, e.g. ?limit=60. You can use 
+ * 'offset' to move to the next page, e.g. ?limit=60&offset=60.
+ */
+interface NamedAPIResourceList {
+	/** The total number of resources available from this API. */
 	count: number;
+	/** The URL for the next page in the list. */
 	next: string;
-	previous: null;
-	results: Pokemon[];
+	/** The URL for the previous page in the list. */
+	previous: string;
+	/** A list of named API resources. */
+	results: NameAPIResource[];
+}
+
+interface PokemonList {
+	id: number;
+	name: string;
+	types: PokemonType[];
 }
 
 type Elements =

@@ -4,9 +4,32 @@
 	import { cubicOut } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
 	import PokePill from './PokePill.svelte';
+	import { db } from '$lib/db';
+	import { onMount } from 'svelte';
 	export let id = 0;
-	export let pokemontypes: Pokemon['types'];
+	export let pokemontypes: PokemonType[];
 	export let pokename: string;
+
+	let dispatched = false;
+	let did: NamedAPIResourceList | undefined;
+	onMount(async () => {
+		did = await db.pokemones.get(id);
+		if(did) dispatched = !dispatched;
+	});
+
+	async function dispatchAdd() {
+		dispatched = !dispatched;
+		if (!did) {
+			did = await db.pokemones.add({
+				id,
+				name: pokename,
+				types: pokemontypes
+			});
+			return;
+		}
+		await db.pokemones.delete(id);
+
+	}
 </script>
 
 <section
@@ -54,21 +77,17 @@
 	</section>
 
 	<button
+		on:click={dispatchAdd}
 		class="bg-surface/30 ring-on-surface absolute right-2 top-2 z-20 flex h-8 w-8 items-center justify-center rounded-full ring-2 backdrop-blur-sm"
 	>
 		<svg
+			xmlns="http://www.w3.org/2000/svg"
 			width="16"
 			height="16"
-			viewBox="0 0 16 16"
-			class="stroke-on-surface fill-none"
-			xmlns="http://www.w3.org/2000/svg"
+			class="stroke-on-surface {dispatched ? 'fill-on-surface' : 'fill-none'}"
 		>
 			<path
-				id="Vector"
-				d="M13.8931 3.07309C13.5526 2.73242 13.1483 2.46218 12.7033 2.27781C12.2584 2.09343 11.7814 1.99854 11.2998 1.99854C10.8181 1.99854 10.3412 2.09343 9.89618 2.27781C9.45121 2.46218 9.04692 2.73242 8.70642 3.07309L7.99975 3.77975L7.29309 3.07309C6.60529 2.38529 5.67244 1.99889 4.69975 1.99889C3.72706 1.99889 2.79422 2.38529 2.10642 3.07309C1.41863 3.76088 1.03223 4.69373 1.03223 5.66642C1.03223 6.63911 1.41863 7.57196 2.10642 8.25975L2.81309 8.96642L7.99975 14.1531L13.1864 8.96642L13.8931 8.25975C14.2337 7.91925 14.504 7.51496 14.6884 7.06999C14.8727 6.62502 14.9676 6.14808 14.9676 5.66642C14.9676 5.18476 14.8727 4.70782 14.6884 4.26285C14.504 3.81788 14.2337 3.41359 13.8931 3.07309V3.07309Z"
-				stroke-width="1.5"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				d="M13.9 3.07a3.67 3.67 0 0 0-5.2 0l-.7.71-.7-.7a3.67 3.67 0 1 0-5.2 5.18l.71.7L8 14.17l5.19-5.2.7-.7a3.67 3.67 0 0 0 0-5.19Z"
 			/>
 		</svg>
 	</button>
