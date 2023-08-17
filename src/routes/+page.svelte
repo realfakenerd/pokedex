@@ -9,7 +9,7 @@
 
 	let value = '';
 
-	$: pesquisa = (val: PokemonList) => {
+	$: pesquisa = (val: CachedPokemon) => {
 		if (value) return val.name.includes(value.toLowerCase().trim());
 		return true;
 	};

@@ -1,12 +1,6 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
-interface CachedPokemon {
-	id: number;
-	name: string;
-	types: PokemonType[];
-}
-
 const pokemonCache = new Map<string, CachedPokemon>();
 
 type Fetch = (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>;
@@ -19,13 +13,13 @@ async function* fetchPokeData(fetch: Fetch, poke: NameAPIResource[]) {
 		const promises = batch.map(async (p) => {
 			const cachedPokemon = pokemonCache.get(p.name);
 			if (cachedPokemon) return cachedPokemon;
-			
+
 			let attempts = 3;
 			while (attempts > 0) {
 				try {
 					const res = await fetch(`/api/pokemon/${p.name}`);
 					const data = (await res.json()) as Pokemon;
-					
+
 					const cachedData = {
 						id: data.id,
 						name: data.name,
@@ -58,7 +52,7 @@ export const GET: RequestHandler = async ({ fetch, url, setHeaders }) => {
 	const data = (await res.json()) as NamedAPIResourceList;
 
 	const pokemons = [];
-	for await (const pokemon of fetchPokeData(fetch,data.results)) {
+	for await (const pokemon of fetchPokeData(fetch, data.results)) {
 		pokemons.push({
 			id: pokemon?.id,
 			name: pokemon?.name,

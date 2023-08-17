@@ -1,3 +1,11 @@
+/* The `CachedPokemon` interface is defining the structure of an object that represents a cached
+Pokémon. It has three properties: */
+interface CachedPokemon {
+	id: number;
+	name: string;
+	types: PokemonType[];
+}
+
 /**
  * Calling any API endpoint without a resource ID or name will 
  * return a paginated list of available resources for that API. 
@@ -17,12 +25,6 @@ interface NamedAPIResourceList {
 	previous: string;
 	/** A list of named API resources. */
 	results: NameAPIResource[];
-}
-
-interface PokemonList {
-	id: number;
-	name: string;
-	types: PokemonType[];
 }
 
 type Elements =
