@@ -2,6 +2,7 @@
 	import PokeCard from '$lib/components/cards/PokeCard.svelte';
 	import SearchBar from '$lib/components/inputs/Search.svelte';
 	import type { PageData } from './$types';
+	import { LRUCache } from 'lru-cache';
 
 	export let data: PageData;
 
@@ -9,12 +10,24 @@
 
 	let value = '';
 
-	function filterPokemon(pokemon: CachedPokemon, searchTerm: string) {
-		if (!searchTerm) return true;
-		return pokemon.name.includes(searchTerm.toLowerCase().trim());
-	}
+	const cache = new LRUCache<string, boolean>({
+		max: 1000,
+		ttl: 1000 * 60 * 3
+	});
 
-	$: filteredPokemon = pokemones.filter((pokemon) => filterPokemon(pokemon, value));
+	const memoizedFilterPokemon = (pokemon: CachedPokemon, searchTerm: string) => {
+		const cacheKey = `${pokemon.name}-${searchTerm}`;
+		const cachedResult = cache.get(cacheKey);
+		if (cachedResult !== undefined) return cachedResult;
+
+		const result = !searchTerm || pokemon.name.includes(searchTerm.toLowerCase().trim());
+		cache.set(cacheKey, result);
+		return result;
+	};
+
+	
+
+	$: filteredPokemon = pokemones.filter((pokemon) => memoizedFilterPokemon(pokemon, value));
 </script>
 
 <svelte:head>

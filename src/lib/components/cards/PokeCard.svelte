@@ -14,7 +14,7 @@
 	let did: NamedAPIResourceList | undefined;
 	onMount(async () => {
 		did = await db.pokemones.get(id);
-		if(did) dispatched = !dispatched;
+		if (did) dispatched = !dispatched;
 	});
 
 	async function dispatchAdd() {
@@ -28,18 +28,17 @@
 			return;
 		}
 		await db.pokemones.delete(id);
-
 	}
 </script>
 
 <section
-	in:fly={{ y: 5, duration: 200, easing: cubicOut }}
+	in:fly={{ y: 10, duration: 100, easing: cubicOut }}
 	style:--bg-color={gibberish(pokemontypes[0].type.name)}
 	style:--on-color={gibberish(pokemontypes[0].type.name, false)}
 	class="poke-container group"
 >
 	<section class="info-section">
-		<hgroup
+		<header
 			class="flex flex-col items-start justify-start transition-colors group-hover:text-[rgb(var(--bg-color))]"
 		>
 			<a href={`/pokemon/${pokename}`} class="text-title-small group-hover:underline">
@@ -48,13 +47,13 @@
 			<a href={`/pokemon/${pokename}`} class="text-title-large capitalize">
 				{pokename}
 			</a>
-		</hgroup>
-		<div class="inline-flex w-full items-start justify-start gap-1">
+		</header>
+		<main class="inline-flex w-full items-start justify-start gap-1">
 			<PokePill class="w-1/2 px-1.5 py-1" pokemontypes={pokemontypes[0].type.name} />
 			{#if pokemontypes.length > 1}
 				<PokePill class="w-1/2 px-1.5 py-1" pokemontypes={pokemontypes[1].type.name} />
 			{/if}
-		</div>
+		</main>
 	</section>
 	<section class="image-section">
 		<div>
@@ -71,12 +70,13 @@
 				loading={id <= 6 ? 'eager' : 'lazy'}
 				decoding="async"
 				src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
-				alt={pokename}
+				alt={`Image of ${pokename}`}
 			/>
 		</figure>
 	</section>
 
 	<button
+		aria-label={dispatched ? 'Remove from Favorites' : 'Add to Favorites'}
 		on:click={dispatchAdd}
 		class="bg-surface/30 ring-on-surface absolute right-2 top-2 z-20 flex h-8 w-8 items-center justify-center rounded-full ring-2 backdrop-blur-sm"
 	>
