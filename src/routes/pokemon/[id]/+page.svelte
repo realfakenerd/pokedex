@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import PokePill from '$lib/components/cards/PokePill.svelte';
+	import PokeStat from '$lib/components/cards/PokeStat.svelte';
 	import Icon from '$lib/elements/Icon.svelte';
 	import { gibberish } from '$lib/utils';
 	import { fade } from 'svelte/transition';
 	import type { PageData } from './$types';
-	import PokeStat from '$lib/components/cards/PokeStat.svelte';
 
 	export let data: PageData;
 	const { pokemon, streamed } = data;
@@ -45,7 +44,7 @@
 >
 	<header>
 		<section class="buttons-section">
-			<button on:click={() => goto('/')}>
+			<button on:click={() => history.back()}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="38"

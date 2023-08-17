@@ -7,64 +7,64 @@ interface CachedPokemon {
 	types: PokemonType[];
 }
 
-const pokemonCache: Record<string, CachedPokemon> = {};
+const pokemonCache = new Map<string, CachedPokemon>();
 
-async function fetchPokeData(poke: NameAPIResource[]): Promise<Pokemon[]> {
-	const concurrentRequests = 20; // Número máximo de requisições simultâneas
+type Fetch = (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>;
+async function* fetchPokeData(fetch: Fetch, poke: NameAPIResource[]) {
+	const concurrentRequests = 20;
 
-	const batches: NameAPIResource[][] = [];
-	for (let i = 0; i < poke.length; i += concurrentRequests) {
-		batches.push(poke.slice(i, i + concurrentRequests));
-	}
-
-	const pokemons: Pokemon[] = [];
-
-	for (const batch of batches) {
+	let i = 0;
+	for (i; i < poke.length; i += concurrentRequests) {
+		const batch = poke.slice(i, i + concurrentRequests);
 		const promises = batch.map(async (p) => {
-			if (pokemonCache[p.name]) return pokemonCache[p.name];
-
+			const cachedPokemon = pokemonCache.get(p.name);
+			if (cachedPokemon) return cachedPokemon;
+			
 			let attempts = 3;
 			while (attempts > 0) {
 				try {
-					const res = await fetch(p.url);
+					const res = await fetch(`/api/pokemon/${p.name}`);
 					const data = (await res.json()) as Pokemon;
-
+					
 					const cachedData = {
 						id: data.id,
 						name: data.name,
 						types: data.types
-					} satisfies CachedPokemon;
+					} as CachedPokemon;
 
-					pokemonCache[data.name] = cachedData;
+					pokemonCache.set(data.name, cachedData);
 
 					return cachedData;
 				} catch (error) {
 					attempts--;
 				}
 			}
-
 			return null;
 		});
 
 		const batchResults = await Promise.all(promises);
-		pokemons.push(...batchResults.filter((pokemon) => pokemon !== null));
+		yield* batchResults.filter((pokemon) => pokemon !== null);
 	}
-
-	return pokemons;
 }
 
-export const GET: RequestHandler = async ({ fetch, url }) => {
+export const GET: RequestHandler = async ({ fetch, url, setHeaders }) => {
+	setHeaders({
+		'Cache-Control': `public, s-maxage= ${60 * 60 * 24}`
+	});
+
 	const limit = url.searchParams.get('limit') ?? 10;
 
 	const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
 	const data = (await res.json()) as NamedAPIResourceList;
 
-	const pokemons = await fetchPokeData(data.results);
+	const pokemons = [];
+	for await (const pokemon of fetchPokeData(fetch,data.results)) {
+		pokemons.push({
+			id: pokemon?.id,
+			name: pokemon?.name,
+			types: pokemon?.types
+		});
+	}
 
-	const list = pokemons.map((pokemon) => ({
-		id: pokemon.id,
-		name: pokemon.name,
-		types: pokemon.types
-	}));
-	return json(list);
+	return json(pokemons);
 };
