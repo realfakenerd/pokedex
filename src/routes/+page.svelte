@@ -9,10 +9,12 @@
 
 	let value = '';
 
-	$: pesquisa = (val: CachedPokemon) => {
-		if (value) return val.name.includes(value.toLowerCase().trim());
-		return true;
-	};
+	function filterPokemon(pokemon: CachedPokemon, searchTerm: string) {
+		if (!searchTerm) return true;
+		return pokemon.name.includes(searchTerm.toLowerCase().trim());
+	}
+
+	$: filteredPokemon = pokemones.filter((pokemon) => filterPokemon(pokemon, value));
 </script>
 
 <svelte:head>
@@ -23,8 +25,8 @@
 <SearchBar bind:value />
 
 <section class="my-2 flex flex-col gap-2 px-2">
-	{#each pokemones.filter(pesquisa) as pokemon, i (i)}
-		<PokeCard pokename={pokemon.name} pokemontypes={pokemon.types} id={i + 1} />
+	{#each filteredPokemon as pokemon (pokemon.id)}
+		<PokeCard pokename={pokemon.name} pokemontypes={pokemon.types} id={pokemon.id} />
 	{:else}
 		<div>try catching another pokemon</div>
 	{/each}
