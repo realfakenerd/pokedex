@@ -1,42 +1,70 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
-async function* fetchPokeData(poke: NameAPIResource[]) {
-	for (const p of poke) {
-		const res = await fetch(p.url);
-		const data = await res.json() as Pokemon;
-
-		yield {
-			id: data.id,
-			name: data.name,
-			types: data.types
-		}
-	}
+interface CachedPokemon {
+	id: number;
+	name: string;
+	types: PokemonType[];
 }
 
-export const GET = (async ({ fetch, url }) => {
+const pokemonCache: Record<string, CachedPokemon> = {};
+
+async function fetchPokeData(poke: NameAPIResource[]): Promise<Pokemon[]> {
+	const concurrentRequests = 20; // Número máximo de requisições simultâneas
+
+	const batches: NameAPIResource[][] = [];
+	for (let i = 0; i < poke.length; i += concurrentRequests) {
+		batches.push(poke.slice(i, i + concurrentRequests));
+	}
+
+	const pokemons: Pokemon[] = [];
+
+	for (const batch of batches) {
+		const promises = batch.map(async (p) => {
+			if (pokemonCache[p.name]) return pokemonCache[p.name];
+
+			let attempts = 3;
+			while (attempts > 0) {
+				try {
+					const res = await fetch(p.url);
+					const data = (await res.json()) as Pokemon;
+
+					const cachedData = {
+						id: data.id,
+						name: data.name,
+						types: data.types
+					} satisfies CachedPokemon;
+
+					pokemonCache[data.name] = cachedData;
+
+					return cachedData;
+				} catch (error) {
+					attempts--;
+				}
+			}
+
+			return null;
+		});
+
+		const batchResults = await Promise.all(promises);
+		pokemons.push(...batchResults.filter((pokemon) => pokemon !== null));
+	}
+
+	return pokemons;
+}
+
+export const GET: RequestHandler = async ({ fetch, url }) => {
 	const limit = url.searchParams.get('limit') ?? 10;
 
 	const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
-	const data = await res.json() as NamedAPIResourceList;
+	const data = (await res.json()) as NamedAPIResourceList;
 
-	const list = []
-	for await (const pokemon of fetchPokeData(data.results)) {
-		list.push(pokemon)
-	}
+	const pokemons = await fetchPokeData(data.results);
 
+	const list = pokemons.map((pokemon) => ({
+		id: pokemon.id,
+		name: pokemon.name,
+		types: pokemon.types
+	}));
 	return json(list);
-}) satisfies RequestHandler;
-
-// const pokelist = await Promise.all(
-// 	data.results.map(async (poke) => {
-// 		const res = await fetch(`/api/pokemon/${poke.name}`);
-// 		const data = (await res.json()) as Pokemon;
-
-// 		return {
-// 			id: data.id,
-// 			name: data.name,
-// 			types: data.types,
-// 		} as PokemonListDef;
-// 	})
-// );
+};

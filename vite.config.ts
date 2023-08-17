@@ -17,7 +17,7 @@ export default defineConfig({
 		})
 	],
 	build: {
-		minify: 'esbuild',
+		minify: 'terser',
 		reportCompressedSize: false,
 		target: 'esnext'
 	},
