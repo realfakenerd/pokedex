@@ -1,7 +1,11 @@
 import { json } from '@sveltejs/kit';
+import { LRUCache } from 'lru-cache';
 import type { RequestHandler } from './$types';
 
-const pokemonCache = new Map<string, CachedPokemon>();
+const pokemonCache = new LRUCache<string, CachedPokemon>({
+	max: 500,
+	ttl: 2000
+});
 
 type Fetch = (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>;
 async function* fetchPokeData(fetch: Fetch, poke: NameAPIResource[]) {
@@ -59,6 +63,5 @@ export const GET: RequestHandler = async ({ fetch, url, setHeaders }) => {
 			types: pokemon?.types
 		});
 	}
-
 	return json(pokemons);
 };

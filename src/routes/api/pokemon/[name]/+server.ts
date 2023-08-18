@@ -1,7 +1,11 @@
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler, RouteParams } from './$types';
+import { LRUCache } from 'lru-cache';
 
-const pokemonCache = new Map<string, Pokemon>(); // Utilize um cache local
+const pokemonCache = new LRUCache<string, Pokemon>({
+	max: 10,
+	ttl: 2000
+});
 
 type Fetch = (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>;
 async function getPokemonData(fetch: Fetch, params: RouteParams) {

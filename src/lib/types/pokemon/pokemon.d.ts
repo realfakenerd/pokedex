@@ -1,52 +1,3 @@
-/* The `CachedPokemon` interface is defining the structure of an object that represents a cached
-Pokémon. It has three properties: */
-interface CachedPokemon {
-	id: number;
-	name: string;
-	types: PokemonType[];
-}
-
-/**
- * Calling any API endpoint without a resource ID or name will 
- * return a paginated list of available resources for that API. 
- * 
- * By default, a list "page" will contain up to 20 resources.
- * 
- * If you would like to change this just add a 'limit' query 
- * parameter to the GET request, e.g. ?limit=60. You can use 
- * 'offset' to move to the next page, e.g. ?limit=60&offset=60.
- */
-interface NamedAPIResourceList {
-	/** The total number of resources available from this API. */
-	count: number;
-	/** The URL for the next page in the list. */
-	next: string;
-	/** The URL for the previous page in the list. */
-	previous: string;
-	/** A list of named API resources. */
-	results: NameAPIResource[];
-}
-
-type Elements =
-	| 'water'
-	| 'dragon'
-	| 'electric'
-	| 'fairy'
-	| 'ghost'
-	| 'fire'
-	| 'ice'
-	| 'grass'
-	| 'bug'
-	| 'fighting'
-	| 'normal'
-	| 'dark'
-	| 'steel'
-	| 'rock'
-	| 'psychic'
-	| 'ground'
-	| 'poison'
-	| 'flying';
-
 /**
  * ### Pokémon
  * Pokémon are the creatures that inhabit the world of the Pokémon games.
@@ -319,39 +270,7 @@ interface PokemonType {
 	type: NameAPIResource<Elements>;
 }
 
-interface Characteristic {
-	descriptions: Description[];
-	gene_modulo: number;
-	highest_stat: HighestStat;
-	id: number;
-	possible_values: number[];
-}
-
-interface Description {
-	description: string;
-	language: Language;
-}
-
-interface Language {
-	name: string;
-	url: string;
-}
-
 interface HighestStat {
 	name: string;
 	url: string;
-}
-
-interface Regions {
-	/** The total number of resources available from this API. */
-	count: number;
-
-	/** The URL for the next page in the list. */
-	next?: string;
-
-	/** The URL for the previous page in the list. */
-	previous?: string;
-
-	/**	A list of named API resources. */
-	results: NameAPIResource[];
 }

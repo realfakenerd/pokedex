@@ -5,7 +5,7 @@
 	import { gibberish } from '$lib/utils';
 	import { fade } from 'svelte/transition';
 	import type { PageData } from './$types';
-
+	import Species from '$lib/components/Species.svelte';
 	export let data: PageData;
 	const { pokemon, streamed } = data;
 	const id = pokemon.id;
@@ -16,7 +16,7 @@
 	const icon = pokemon.sprites?.versions?.['generation-vii'].icons.front_default;
 	const pokemontypes = pokemon.types[0].type.name;
 
-	console.log(pokemon);
+	console.log(data);
 </script>
 
 <svelte:head>
@@ -108,7 +108,7 @@
 			<h2 class="text-label-large">Nº {id < 100 ? (id < 10 ? `00${id}` : `0${id}`) : id}</h2>
 			<h3 class="text-label-large">
 				{#await streamed.characteristic}
-					loading...
+					loading characteristic...
 				{:then characteristic}
 					{@const description = characteristic.descriptions.find(
 						(d) => d.language.name === 'en'
@@ -128,13 +128,20 @@
 				/>
 			{/if}
 		</div>
+		<section class="text-body-medium">
+			{#await streamed.specie}
+				loading...
+			{:then specie}
+				{specie.flavor_text_entries[0]?.flavor_text.replace(/\f/g, ' ')}
+			{/await}
+		</section>
 		<section class="mb-10 flex flex-col gap-5">
 			<div class="fill-on-surface inline-flex w-full gap-5">
 				<div class="flex w-full flex-col gap-1">
 					<span class="text-label-medium inline-flex items-center gap-1.5 uppercase">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
 							<path
-								d="M8 2.5C7.1775 2.5 6.5 3.1775 6.5 4C6.5 4.176 6.537 4.342 6.594 4.5H4.094L4.0155 4.9065L2.5155 12.4065L2.5 12.453V13.5H13.5V12.453L13.4845 12.4065L11.9845 4.9065L11.906 4.5H9.406C9.46606 4.34004 9.49786 4.17085 9.5 4C9.5 3.1775 8.8225 2.5 8 2.5ZM8 3.5C8.2815 3.5 8.5 3.719 8.5 4C8.5 4.2815 8.281 4.5 8 4.5C7.7185 4.5 7.5 4.281 7.5 4C7.5 3.7185 7.719 3.5 8 3.5ZM4.906 5.5H11.094L12.5 12.5H3.5L4.906 5.5Z"
+								d="M8 2.5c-.82 0-1.5.68-1.5 1.5 0 .18.04.34.1.5H4.1l-.08.4-1.5 7.5-.02.05v1.05h11v-1.05l-.02-.04-1.5-7.5-.07-.41H9.4a1.5 1.5 0 0 0-1.4-2Zm0 1c.28 0 .5.22.5.5a.5.5 0 0 1-.5.5.5.5 0 0 1-.5-.5c0-.28.22-.5.5-.5Zm-3.1 2h6.2l1.4 7h-9l1.4-7Z"
 							/>
 						</svg>
 						weight
@@ -145,9 +152,9 @@
 				</div>
 				<div class="flex w-full flex-col gap-1">
 					<span class="text-label-medium inline-flex items-center gap-1.5 uppercase">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
 							<path
-								d="M13.125 13.062H2.875C2.80625 13.062 2.75 13.1183 2.75 13.187L2.75 14.1245C2.75 14.1933 2.80625 14.2495 2.875 14.2495H13.125C13.1938 14.2495 13.25 14.1933 13.25 14.1245V13.187C13.25 13.1183 13.1938 13.062 13.125 13.062ZM13.125 1.74951L2.875 1.74951C2.80625 1.74951 2.75 1.80576 2.75 1.87451V2.81201C2.75 2.88076 2.80625 2.93701 2.875 2.93701L13.125 2.93701C13.1938 2.93701 13.25 2.88076 13.25 2.81201V1.87451C13.25 1.80576 13.1938 1.74951 13.125 1.74951ZM9.54375 5.90576C9.6375 5.90576 9.69063 5.79639 9.63281 5.72295L8.05781 3.7292C8.04739 3.71571 8.03401 3.70478 8.01871 3.69727C8.0034 3.68975 7.98658 3.68585 7.96953 3.68585C7.95248 3.68585 7.93566 3.68975 7.92036 3.69727C7.90505 3.70478 7.89167 3.71571 7.88125 3.7292L6.30625 5.72295C6.29313 5.73963 6.28497 5.75967 6.28271 5.78077C6.28046 5.80188 6.28419 5.82319 6.29348 5.84227C6.30278 5.86135 6.31726 5.87743 6.33527 5.88865C6.35328 5.89988 6.37409 5.90581 6.39531 5.90576H7.4375L7.4375 10.0933H6.45625C6.3625 10.0933 6.30938 10.2026 6.36719 10.2761L7.94219 12.2683C7.9875 12.3261 8.075 12.3261 8.11875 12.2683L9.69375 10.2761C9.75156 10.2026 9.7 10.0933 9.60469 10.0933H8.5625V5.90576H9.54375Z"
+								d="M13.13 13.06H2.87a.13.13 0 0 0-.12.13v.93c0 .07.06.13.13.13h10.25c.06 0 .12-.06.12-.13v-.93a.13.13 0 0 0-.13-.13Zm0-11.31H2.87a.13.13 0 0 0-.12.12v.94c0 .07.06.13.13.13h10.25c.06 0 .12-.06.12-.13v-.94a.13.13 0 0 0-.13-.12ZM9.54 5.91c.1 0 .15-.11.1-.19l-1.58-2a.11.11 0 0 0-.18 0l-1.57 2a.11.11 0 0 0 .09.19h1.04v4.18h-.98c-.1 0-.15.11-.1.19l1.58 1.99c.05.06.13.06.18 0l1.57-2a.11.11 0 0 0-.09-.18H8.56V5.91h.98Z"
 							/>
 						</svg>
 						height
@@ -191,7 +198,7 @@
 	.header-background div {
 		@apply absolute bottom-[5%] left-1/2 -z-10 -translate-x-1/2 transform;
 	}
-	
+
 	.buttons-section {
 		@apply inline-flex w-full items-center justify-between pl-4 pr-8 pt-5;
 	}

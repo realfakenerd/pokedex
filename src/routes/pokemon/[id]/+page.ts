@@ -15,7 +15,8 @@ export const load = (async ({ params, fetch }) => {
 			streamed: {
 				characteristic: (
 					await fetch(`https://pokeapi.co/api/v2/characteristic/${Math.floor(hiv.base_stat / 5)}`)
-				).json() as Promise<Characteristic>
+				).json() as Promise<Characteristic>,
+				specie: (await fetch(data.species.url)).json() as Promise<PokemonSpecies>
 			}
 		};
 	} catch (err) {
