@@ -164,6 +164,36 @@
 					>
 				</div>
 			</div>
+			{#await streamed.specie then specie}
+				<div class="fill-on-surface inline-flex w-full gap-5">
+					<div class="flex w-full flex-col gap-1">
+						<span class="text-label-medium inline-flex items-center gap-1.5 uppercase">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+								<path
+									d="M8 2.5c-.82 0-1.5.68-1.5 1.5 0 .18.04.34.1.5H4.1l-.08.4-1.5 7.5-.02.05v1.05h11v-1.05l-.02-.04-1.5-7.5-.07-.41H9.4a1.5 1.5 0 0 0-1.4-2Zm0 1c.28 0 .5.22.5.5a.5.5 0 0 1-.5.5.5.5 0 0 1-.5-.5c0-.28.22-.5.5-.5Zm-3.1 2h6.2l1.4 7h-9l1.4-7Z"
+								/>
+							</svg>
+							weight
+						</span>
+						<span class="text-title-medium flex w-full justify-center p-2">
+							{specie.shape.name}</span>
+					</div>
+					<div class="flex w-full flex-col gap-1">
+						<span class="text-label-medium inline-flex items-center gap-1.5 uppercase">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+								<path
+									d="M13.13 13.06H2.87a.13.13 0 0 0-.12.13v.93c0 .07.06.13.13.13h10.25c.06 0 .12-.06.12-.13v-.93a.13.13 0 0 0-.13-.13Zm0-11.31H2.87a.13.13 0 0 0-.12.12v.94c0 .07.06.13.13.13h10.25c.06 0 .12-.06.12-.13v-.94a.13.13 0 0 0-.13-.12ZM9.54 5.91c.1 0 .15-.11.1-.19l-1.58-2a.11.11 0 0 0-.18 0l-1.57 2a.11.11 0 0 0 .09.19h1.04v4.18h-.98c-.1 0-.15.11-.1.19l1.58 1.99c.05.06.13.06.18 0l1.57-2a.11.11 0 0 0-.09-.18H8.56V5.91h.98Z"
+								/>
+							</svg>
+							height
+						</span>
+						<span class="text-title-medium flex w-full justify-center p-2"
+							>{(pokemon.height * 0.1).toFixed(1)} m</span
+						>
+					</div>
+				</div>
+			{/await}
+
 			<section
 				style="grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));"
 				class="grid gap-2"
