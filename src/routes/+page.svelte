@@ -6,10 +6,9 @@
 
 	export let data: PageData;
 
-	const { pokemones } = data;
+	$: ({ pokemones } = data);
 
 	let value = '';
-
 	const cache = new LRUCache<string, boolean>({
 		max: 1000,
 		ttl: 1000 * 60 * 3
@@ -24,10 +23,17 @@
 		cache.set(cacheKey, result);
 		return result;
 	};
-
-	
-
 	$: filteredPokemon = pokemones.filter((pokemon) => memoizedFilterPokemon(pokemon, value));
+
+	let next = data.next;
+	async function loadMore() {
+		const res = await fetch(next);
+		const newPokemones = (await res.json()) as CachedPokemonList;
+
+		pokemones = [...pokemones, ...newPokemones.results];
+		next = newPokemones.next;
+		console.log(pokemones);
+	}
 </script>
 
 <svelte:head>
@@ -43,4 +49,7 @@
 	{:else}
 		<div>try catching another pokemon</div>
 	{/each}
+</section>
+<section class="flex w-full justify-center py-2">
+	<button on:click={loadMore} class="bg-surface-variant w-1/3 p-2">Load more</button>
 </section>

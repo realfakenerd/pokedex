@@ -2,8 +2,13 @@
 Pokémon. It has three properties: */
 interface CachedPokemon {
 	id: number;
-	name: string;
-	types: PokemonType[];
+		name: string;
+		types: PokemonType[];
+}
+
+interface CachedPokemonList {
+	next: string;
+	results: CachedPokemon[]
 }
 
 type Elements =

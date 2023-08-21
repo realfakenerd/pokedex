@@ -165,7 +165,7 @@
 				</div>
 			</div>
 			{#await streamed.specie then specie}
-				<div class="fill-on-surface inline-flex w-full gap-5">
+				<div class="fill-on-surface inline-flex w-full gap-5 capitalize">
 					<div class="flex w-full flex-col gap-1">
 						<span class="text-label-medium inline-flex items-center gap-1.5 uppercase">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
@@ -173,10 +173,11 @@
 									d="M8 2.5c-.82 0-1.5.68-1.5 1.5 0 .18.04.34.1.5H4.1l-.08.4-1.5 7.5-.02.05v1.05h11v-1.05l-.02-.04-1.5-7.5-.07-.41H9.4a1.5 1.5 0 0 0-1.4-2Zm0 1c.28 0 .5.22.5.5a.5.5 0 0 1-.5.5.5.5 0 0 1-.5-.5c0-.28.22-.5.5-.5Zm-3.1 2h6.2l1.4 7h-9l1.4-7Z"
 								/>
 							</svg>
-							weight
+							Shape
 						</span>
 						<span class="text-title-medium flex w-full justify-center p-2">
-							{specie.shape.name}</span>
+							{specie.shape.name}
+						</span>
 					</div>
 					<div class="flex w-full flex-col gap-1">
 						<span class="text-label-medium inline-flex items-center gap-1.5 uppercase">
