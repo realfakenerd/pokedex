@@ -50,9 +50,10 @@ export const GET: RequestHandler = async ({ fetch, url, setHeaders }) => {
 		'Cache-Control': `public, s-maxage= ${60 * 60 * 24}`
 	});
 
-	const limit = url.searchParams.get('limit') ?? 10;
-
-	const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
+	const offset = url.searchParams.get('offset');
+	const res = await fetch(
+		`https://pokeapi.co/api/v2/pokemon?offset=${offset ?? 0}&limit=${offset ?? 10}`
+	);
 	const data = (await res.json()) as NamedAPIResourceList;
 
 	const pokemons = [];
@@ -63,5 +64,8 @@ export const GET: RequestHandler = async ({ fetch, url, setHeaders }) => {
 			types: pokemon?.types
 		});
 	}
-	return json(pokemons);
+	return json({
+		next: `/api/pokemon?offset=${(parseInt(offset as string) * 2) || 10}`,
+		results: pokemons
+	});
 };
