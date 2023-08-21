@@ -5,7 +5,7 @@
 	import { gibberish } from '$lib/utils';
 	import { fade } from 'svelte/transition';
 	import type { PageData } from './$types';
-	import Species from '$lib/components/Species.svelte';
+	import { onMount } from 'svelte';
 	export let data: PageData;
 	const { pokemon, streamed } = data;
 	const id = pokemon.id;
@@ -15,6 +15,9 @@
 
 	const icon = pokemon.sprites?.versions?.['generation-vii'].icons.front_default;
 	const pokemontypes = pokemon.types[0].type.name;
+
+	let init = false;
+	onMount(() => (init = true));
 
 	console.log(data);
 </script>
@@ -88,18 +91,20 @@
 				/>
 			</div>
 		</section>
-		<figure in:fade={{ duration: 200, delay: 200 }}>
-			<img
-				src="https://projectpokemon.org/images/normal-sprite/{pokemon.name}.gif"
-				bind:this={img}
-				bind:naturalWidth
-				bind:naturalHeight
-				width={naturalWidth * 2}
-				height={naturalHeight * 2}
-				alt="{pokemon.name} gif"
-				loading="eager"
-			/>
-		</figure>
+		{#if init}
+			<figure in:fade={{ duration: 300, delay: 300 }}>
+				<img
+					src="https://projectpokemon.org/images/normal-sprite/{pokemon.name}.gif"
+					bind:this={img}
+					bind:naturalWidth
+					bind:naturalHeight
+					width={naturalWidth * 2}
+					height={naturalHeight * 2}
+					alt="{pokemon.name} gif"
+					loading="eager"
+				/>
+			</figure>
+		{/if}
 	</header>
 
 	<main class="infodata-section">
@@ -139,9 +144,9 @@
 			<div class="fill-on-surface inline-flex w-full gap-5">
 				<div class="flex w-full flex-col gap-1">
 					<span class="text-label-medium inline-flex items-center gap-1.5 uppercase">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+						<svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16">
 							<path
-								d="M8 2.5c-.82 0-1.5.68-1.5 1.5 0 .18.04.34.1.5H4.1l-.08.4-1.5 7.5-.02.05v1.05h11v-1.05l-.02-.04-1.5-7.5-.07-.41H9.4a1.5 1.5 0 0 0-1.4-2Zm0 1c.28 0 .5.22.5.5a.5.5 0 0 1-.5.5.5.5 0 0 1-.5-.5c0-.28.22-.5.5-.5Zm-3.1 2h6.2l1.4 7h-9l1.4-7Z"
+								d="M14,11V8c4.56-0.58,8-3.1,8-6H2c0,2.9,3.44,5.42,8,6l0,3c-3.68,0.73-8,3.61-8,11h6v-2H4.13c0.93-6.83,6.65-7.2,7.87-7.2 s6.94,0.37,7.87,7.2H16v2h6C22,14.61,17.68,11.73,14,11z M18.87,4C17.5,5.19,15,6.12,12,6.12C9,6.12,6.5,5.19,5.13,4H18.87z M12,22 c-1.1,0-2-0.9-2-2c0-0.55,0.22-1.05,0.59-1.41C11.39,17.79,16,16,16,16s-1.79,4.61-2.59,5.41C13.05,21.78,12.55,22,12,22z"
 							/>
 						</svg>
 						weight
@@ -152,9 +157,15 @@
 				</div>
 				<div class="flex w-full flex-col gap-1">
 					<span class="text-label-medium inline-flex items-center gap-1.5 uppercase">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-							<path
-								d="M13.13 13.06H2.87a.13.13 0 0 0-.12.13v.93c0 .07.06.13.13.13h10.25c.06 0 .12-.06.12-.13v-.93a.13.13 0 0 0-.13-.13Zm0-11.31H2.87a.13.13 0 0 0-.12.12v.94c0 .07.06.13.13.13h10.25c.06 0 .12-.06.12-.13v-.94a.13.13 0 0 0-.13-.12ZM9.54 5.91c.1 0 .15-.11.1-.19l-1.58-2a.11.11 0 0 0-.18 0l-1.57 2a.11.11 0 0 0 .09.19h1.04v4.18h-.98c-.1 0-.15.11-.1.19l1.58 1.99c.05.06.13.06.18 0l1.57-2a.11.11 0 0 0-.09-.18H8.56V5.91h.98Z"
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							enable-background="new 0 0 24 24"
+							height="16"
+							viewBox="0 0 24 24"
+							width="16"
+						>
+							<polygon
+								points="13,6.99 16,6.99 12,3 8,6.99 11,6.99 11,17.01 8,17.01 12,21 16,17.01 13,17.01"
 							/>
 						</svg>
 						height
@@ -168,9 +179,9 @@
 				<div class="fill-on-surface inline-flex w-full gap-5 capitalize">
 					<div class="flex w-full flex-col gap-1">
 						<span class="text-label-medium inline-flex items-center gap-1.5 uppercase">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+							<svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16">
 								<path
-									d="M8 2.5c-.82 0-1.5.68-1.5 1.5 0 .18.04.34.1.5H4.1l-.08.4-1.5 7.5-.02.05v1.05h11v-1.05l-.02-.04-1.5-7.5-.07-.41H9.4a1.5 1.5 0 0 0-1.4-2Zm0 1c.28 0 .5.22.5.5a.5.5 0 0 1-.5.5.5.5 0 0 1-.5-.5c0-.28.22-.5.5-.5Zm-3.1 2h6.2l1.4 7h-9l1.4-7Z"
+									d="M17.2,3H6.8l-5.2,9l5.2,9h10.4l5.2-9L17.2,3z M16.05,19H7.95l-4.04-7l4.04-7h8.09l4.04,7L16.05,19z"
 								/>
 							</svg>
 							Shape
@@ -181,16 +192,16 @@
 					</div>
 					<div class="flex w-full flex-col gap-1">
 						<span class="text-label-medium inline-flex items-center gap-1.5 uppercase">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+							<svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16">
 								<path
-									d="M13.13 13.06H2.87a.13.13 0 0 0-.12.13v.93c0 .07.06.13.13.13h10.25c.06 0 .12-.06.12-.13v-.93a.13.13 0 0 0-.13-.13Zm0-11.31H2.87a.13.13 0 0 0-.12.12v.94c0 .07.06.13.13.13h10.25c.06 0 .12-.06.12-.13v-.94a.13.13 0 0 0-.13-.12ZM9.54 5.91c.1 0 .15-.11.1-.19l-1.58-2a.11.11 0 0 0-.18 0l-1.57 2a.11.11 0 0 0 .09.19h1.04v4.18h-.98c-.1 0-.15.11-.1.19l1.58 1.99c.05.06.13.06.18 0l1.57-2a.11.11 0 0 0-.09-.18H8.56V5.91h.98Z"
+									d="M11,21h-1l1-7H7.5c-0.88,0-0.33-0.75-0.31-0.78C8.48,10.94,10.42,7.54,13.01,3h1l-1,7h3.51c0.4,0,0.62,0.19,0.4,0.66 C12.97,17.55,11,21,11,21z"
 								/>
 							</svg>
-							height
+							abilities
 						</span>
-						<span class="text-title-medium flex w-full justify-center p-2"
-							>{(pokemon.height * 0.1).toFixed(1)} m</span
-						>
+						<span class="text-title-medium flex w-full justify-center p-2">
+							{pokemon.abilities[0].ability.name} / {pokemon.abilities[1].ability.name}
+						</span>
 					</div>
 				</div>
 			{/await}

@@ -67,7 +67,7 @@
 			<img
 				width="256"
 				height="256"
-				loading={id <= 6 ? 'eager' : 'lazy'}
+				loading={id <= 4 ? 'eager' : 'lazy'}
 				decoding="async"
 				src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
 				alt={`Image of ${pokename}`}

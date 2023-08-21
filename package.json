@@ -45,6 +45,7 @@
 		"typescript": "5.2.1-rc",
 		"vite": "^4.4.9",
 		"vite-plugin-compression": "^0.3.6",
+		"vite-plugin-lightningcss": "^0.0.5",
 		"vite-plugin-remove-console": "^2.1.1",
 		"vitest": "^0.32.4",
 		"workbox-core": "^7.0.0",
