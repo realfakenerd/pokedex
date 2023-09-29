@@ -44,7 +44,11 @@
 			<a href={`/pokemon/${pokename}`} class="text-title-small group-hover:underline">
 				Nº {id < 100 ? (id < 10 ? `00${id}` : `0${id}`) : id}
 			</a>
-			<a href={`/pokemon/${pokename}`} class="text-title-large capitalize">
+			<a
+				style:view-transition-name={pokename}
+				href={`/pokemon/${pokename}`}
+				class="text-title-large capitalize"
+			>
 				{pokename}
 			</a>
 		</header>

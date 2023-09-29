@@ -1,7 +1,7 @@
 import Dexie, {type Table} from 'dexie';
 
 class SubDexie extends Dexie {
-    pokemones!: Table<PokemonList>;
+    pokemones!: Table<PokemonListDef>;
 
     constructor(){
         super('pokefavorites');

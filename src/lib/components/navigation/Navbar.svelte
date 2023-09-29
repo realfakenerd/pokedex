@@ -1,7 +1,7 @@
 <nav>
 	<a href="/">
-		<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none"
-			><path fill="#fff" d="M2.2 13a10.8 10.8 0 1 0 21.6 0H2.2Z" /><path
+		<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none">
+			<path fill="#fff" d="M2.2 13a10.8 10.8 0 1 0 21.6 0H2.2Z" /><path
 				fill="#CD3131"
 				d="M23.8 13a10.8 10.8 0 0 0-21.6 0h21.6Z"
 			/><circle cx="13" cy="13" r="3.3" fill="#fff" /><path
@@ -16,8 +16,8 @@
 				stroke-linejoin="round"
 				stroke-width="1.5"
 				d="M13 16.3a3.3 3.3 0 1 0 0-6.6 3.3 3.3 0 0 0 0 6.6v0Z"
-			/><path stroke="#173EA5" stroke-width="1.5" d="M2.2 13h7.5m6.6 0h7.5" /></svg
-		>
+			/><path stroke="#173EA5" stroke-width="1.5" d="M2.2 13h7.5m6.6 0h7.5" />
+		</svg>
 		<span>Pokedéx</span>
 	</a>
 	<a href="/regions">
@@ -84,6 +84,8 @@
 	nav {
 		@apply bg-surface-variant text-label-large text-on-surface-variant flex min-h-[72px] w-full items-center justify-between border-t px-8 py-0;
 		border-color: #e6e6e6;
+
+		view-transition-name: nav;
 	}
 
 	a {

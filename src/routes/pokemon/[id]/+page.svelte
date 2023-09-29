@@ -6,8 +6,9 @@
 	import { fade } from 'svelte/transition';
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
+	// import Habitat from '$lib/components/cards/Habitat.svelte';
 	export let data: PageData;
-	const { pokemon, streamed } = data;
+	const { pokemon, specie, streamed } = data;
 	const id = pokemon.id;
 	let img: HTMLImageElement;
 	let naturalWidth: number;
@@ -109,7 +110,7 @@
 
 	<main class="infodata-section">
 		<hgroup>
-			<h1 class="text-headline-large capitalize">{pokemon.name}</h1>
+			<h1 class="text-headline-large capitalize" style:view-transition-name={pokemon.name}>{pokemon.name}</h1>
 			<h2 class="text-label-large">Nº {id < 100 ? (id < 10 ? `00${id}` : `0${id}`) : id}</h2>
 			<h3 class="text-label-large">
 				{#await streamed.characteristic}
@@ -134,11 +135,7 @@
 			{/if}
 		</div>
 		<section class="text-body-medium">
-			{#await streamed.specie}
-				loading...
-			{:then specie}
-				{specie.flavor_text_entries[0]?.flavor_text.replace(/\f/g, ' ')}
-			{/await}
+			{specie.flavor_text_entries[0]?.flavor_text.replace(/\f/g, ' ')}
 		</section>
 		<section class="mb-10 flex flex-col gap-5">
 			<div class="fill-on-surface inline-flex w-full gap-5">
@@ -175,36 +172,35 @@
 					>
 				</div>
 			</div>
-			{#await streamed.specie then specie}
-				<div class="fill-on-surface inline-flex w-full gap-5 capitalize">
-					<div class="flex w-full flex-col gap-1">
-						<span class="text-label-medium inline-flex items-center gap-1.5 uppercase">
-							<svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16">
-								<path
-									d="M17.2,3H6.8l-5.2,9l5.2,9h10.4l5.2-9L17.2,3z M16.05,19H7.95l-4.04-7l4.04-7h8.09l4.04,7L16.05,19z"
-								/>
-							</svg>
-							Shape
-						</span>
-						<span class="text-title-medium flex w-full justify-center p-2">
-							{specie.shape.name}
-						</span>
-					</div>
-					<div class="flex w-full flex-col gap-1">
-						<span class="text-label-medium inline-flex items-center gap-1.5 uppercase">
-							<svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16">
-								<path
-									d="M11,21h-1l1-7H7.5c-0.88,0-0.33-0.75-0.31-0.78C8.48,10.94,10.42,7.54,13.01,3h1l-1,7h3.51c0.4,0,0.62,0.19,0.4,0.66 C12.97,17.55,11,21,11,21z"
-								/>
-							</svg>
-							abilities
-						</span>
-						<span class="text-title-medium flex w-full justify-center p-2">
-							{pokemon.abilities[0].ability.name} / {pokemon.abilities[1].ability.name}
-						</span>
-					</div>
+
+			<div class="fill-on-surface inline-flex w-full gap-5 capitalize">
+				<div class="flex w-full flex-col gap-1">
+					<span class="text-label-medium inline-flex items-center gap-1.5 uppercase">
+						<svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16">
+							<path
+								d="M17.2,3H6.8l-5.2,9l5.2,9h10.4l5.2-9L17.2,3z M16.05,19H7.95l-4.04-7l4.04-7h8.09l4.04,7L16.05,19z"
+							/>
+						</svg>
+						Shape
+					</span>
+					<span class="text-title-medium flex w-full justify-center p-2">
+						{specie.shape.name}
+					</span>
 				</div>
-			{/await}
+				<div class="flex w-full flex-col gap-1">
+					<span class="text-label-medium inline-flex items-center gap-1.5 uppercase">
+						<svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16">
+							<path
+								d="M11,21h-1l1-7H7.5c-0.88,0-0.33-0.75-0.31-0.78C8.48,10.94,10.42,7.54,13.01,3h1l-1,7h3.51c0.4,0,0.62,0.19,0.4,0.66 C12.97,17.55,11,21,11,21z"
+							/>
+						</svg>
+						abilities
+					</span>
+					<span class="text-title-medium flex w-full justify-center p-2">
+						{pokemon.abilities[0].ability.name} / {pokemon.abilities[1].ability.name}
+					</span>
+				</div>
+			</div>
 
 			<section
 				style="grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));"
@@ -218,6 +214,22 @@
 				<PokeStat stats={pokemon.stats[5]} />
 			</section>
 		</section>
+
+		<!-- <div>
+			<Habitat habitatName={specie.habitat.name} />
+		</div> -->
+
+		<div>
+			{#await streamed.evolution_chain}
+				loading...
+			{:then ec} 
+				{ec.chain.species.name}
+				->
+				{ec.chain.evolves_to[0].species.name}
+				->
+				{ec.chain.evolves_to[0].evolves_to[0].species.name}
+			{/await}
+		</div>
 	</main>
 </div>
 
