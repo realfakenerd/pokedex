@@ -1,7 +1,7 @@
 <script lang="ts">
 	import PokeCard from '$lib/components/cards/PokeCard.svelte';
 	import SearchBar from '$lib/components/inputs/Search.svelte';
-	import { LRUCache } from 'lru-cache';
+	import { LRUCache } from '$lib/cache.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -21,6 +21,7 @@
 		cache.set(cacheKey, result);
 		return result;
 	};
+
 	$: filteredPokemon = data.pokemones.filter((pokemon) => memoizedFilterPokemon(pokemon, value));
 
 	let next = data.next;
