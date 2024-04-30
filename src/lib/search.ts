@@ -13,10 +13,10 @@ export function createPokemonIndex(data: CachedPokemon[]) {
 	pokemones = data;
 }
 
-export function searchPokemon(value: string) {
+export async function searchPokemon(value: string) {
 	const match = value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-	const results = pokeIndex.search(match);
+	const results = await pokeIndex.searchAsync(match);
 	return results
 		.map((index) => pokemones[index as number])
 		.map(({ id, name, types }) => ({ id, name, types }));

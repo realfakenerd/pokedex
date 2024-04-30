@@ -12,7 +12,7 @@
 	$effect(() => {
 		if (pokemones) createPokemonIndex(pokemones.results);
 		if (value) {
-			results = searchPokemon(value);
+			searchPokemon(value).then((res) => (results = res));
 		} else results = pokemones.results;
 	});
 
