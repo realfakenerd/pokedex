@@ -1,6 +1,6 @@
 import type { LayoutLoad } from './$types';
 
-export const load: LayoutLoad = async ({ fetch }) => {
+export const load: LayoutLoad = async ({ fetch, url }) => {
   try {
     const res = await fetch('/api/pokemon?limit=100');
 
