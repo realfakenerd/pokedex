@@ -2,7 +2,7 @@ import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async ({ fetch, url }) => {
   try {
-    const res = await fetch('/api/pokemon?limit=100');
+    const res = await fetch('/api/pokemon');
 
     if (!res.ok) {
       throw new Error(`API request failed with status ${res.status}`);
