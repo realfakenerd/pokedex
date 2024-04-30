@@ -16,6 +16,6 @@ export const load: LayoutLoad = async ({ fetch, url }) => {
   } catch (error) {
     console.error('Error fetching Pokemon data:', error);
     // Optionally return a default value or handle the error in the UI
-    return { currentPath: url.pathname, pokemons: [] };
+    return { currentPath: url.pathname, pokemones: [] };
   }
 };
