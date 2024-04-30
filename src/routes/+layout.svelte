@@ -5,7 +5,6 @@
 	import '@fontsource/poppins/400.css';
 	import '@fontsource/poppins/500.css';
 	import '../app.css';
-	import type { LayoutData } from './$types';
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
@@ -17,12 +16,12 @@
 		});
 	});
 
-	export let data: LayoutData;
+	let {data, children} = $props();
 </script>
 
 {#key data.currentPath}
 	<main class="min-h-[100dvh]">
-		<slot />
+		{@render children()}
 	</main>
 {/key}
 

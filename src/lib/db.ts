@@ -1,6 +1,6 @@
 import Dexie, {type Table} from 'dexie';
 
-class SubDexie extends Dexie {
+class CustomDexie extends Dexie {
     pokemones!: Table<PokemonListDef>;
 
     constructor(){
@@ -11,4 +11,4 @@ class SubDexie extends Dexie {
     }
 }
 
-export const db = new SubDexie();
+export const db = new CustomDexie();

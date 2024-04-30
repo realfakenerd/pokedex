@@ -5,15 +5,21 @@
 	import { fly } from 'svelte/transition';
 	import PokePill from './PokePill.svelte';
 	import { db } from '$lib/db';
-	import { onMount } from 'svelte';
-	export let id = 0;
-	export let pokemontypes: PokemonType[];
-	export let pokename: string;
 
-	let dispatched = false;
-	let did: NamedAPIResourceList | undefined;
-	onMount(async () => {
-		did = await db.pokemones.get(id);
+	let {
+		id = 0,
+		pokename,
+		pokemontypes = []
+	}: {
+		id?: number;
+		pokename: string;
+		pokemontypes: PokemonType[];
+	} = $props();
+
+	let dispatched = $state(false);
+	let did = $state<NamedAPIResourceList | undefined>();
+	$effect(() => {
+		db.pokemones.get(id).then((d) => (did = d));
 		if (did) dispatched = !dispatched;
 	});
 
@@ -81,7 +87,7 @@
 
 	<button
 		aria-label={dispatched ? 'Remove from Favorites' : 'Add to Favorites'}
-		on:click={dispatchAdd}
+		onclick={dispatchAdd}
 		class="bg-surface/30 ring-on-surface absolute right-2 top-2 z-20 flex h-8 w-8 items-center justify-center rounded-full ring-2 backdrop-blur-sm"
 	>
 		<svg

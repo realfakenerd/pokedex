@@ -50,9 +50,10 @@ export const GET: RequestHandler = async ({ fetch, url, setHeaders }) => {
 		'Cache-Control': `public, s-maxage= ${60 * 60 * 24}`
 	});
 
-	const offset = url.searchParams.get('offset');
+	const offset = url.searchParams.get('offset') ?? 0;
+	const limit = url.searchParams.get('limit') ?? 10;
 	const res = await fetch(
-		`https://pokeapi.co/api/v2/pokemon?offset=${offset ?? 0}&limit=${offset ?? 10}`
+		`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
 	);
 	const data = (await res.json()) as NamedAPIResourceList;
 

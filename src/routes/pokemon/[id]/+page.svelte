@@ -4,27 +4,27 @@
 	import Icon from '$lib/elements/Icon.svelte';
 	import { gibberish } from '$lib/utils';
 	import { fade } from 'svelte/transition';
-	import type { PageData } from './$types';
-	import { onMount } from 'svelte';
 	// import Habitat from '$lib/components/cards/Habitat.svelte';
-	export let data: PageData;
+	let { data } = $props();
+
 	const { pokemon, specie, streamed } = data;
+
 	const id = pokemon.id;
-	let img: HTMLImageElement;
-	let naturalWidth: number;
-	let naturalHeight: number;
+	
+	let naturalWidth = $state<number>(0);
+	let naturalHeight = $state<number>(0);
 
 	const icon = pokemon.sprites?.versions?.['generation-vii'].icons.front_default;
 	const pokemontypes = pokemon.types[0].type.name;
 
-	let init = false;
-	onMount(() => (init = true));
-
-	console.log(data);
+	let init = $state(false);
+	$effect(() => {
+		init = true;
+	});
 </script>
 
 <svelte:head>
-	<link rel="shortcut icon" href={icon} />
+	<link rel="shortcut icon" sizes="48x48" href={icon} />
 	<title>{pokemon.name.toUpperCase()}</title>
 	<meta property="twitter:card" content="summary_large_image" />
 	<meta property="og:title" content={pokemon.name.toUpperCase()} />
@@ -48,7 +48,7 @@
 >
 	<header>
 		<section class="buttons-section">
-			<button on:click={() => history.back()}>
+			<button onclick={() => history.back()}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="38"
@@ -96,7 +96,6 @@
 			<figure in:fade={{ duration: 300, delay: 300 }}>
 				<img
 					src="https://projectpokemon.org/images/normal-sprite/{pokemon.name}.gif"
-					bind:this={img}
 					bind:naturalWidth
 					bind:naturalHeight
 					width={naturalWidth * 2}
@@ -110,7 +109,9 @@
 
 	<main class="infodata-section">
 		<hgroup>
-			<h1 class="text-headline-large capitalize" style:view-transition-name={pokemon.name}>{pokemon.name}</h1>
+			<h1 class="text-headline-large capitalize" style:view-transition-name={pokemon.name}>
+				{pokemon.name}
+			</h1>
 			<h2 class="text-label-large">Nº {id < 100 ? (id < 10 ? `00${id}` : `0${id}`) : id}</h2>
 			<h3 class="text-label-large">
 				{#await streamed.characteristic}
@@ -222,7 +223,7 @@
 		<div>
 			{#await streamed.evolution_chain}
 				loading...
-			{:then ec} 
+			{:then ec}
 				{ec.chain.species.name}
 				->
 				{ec.chain.evolves_to[0].species.name}
