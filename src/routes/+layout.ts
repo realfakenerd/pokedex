@@ -1,10 +1,21 @@
-import type { LayoutLoad } from "./$types"
+import type { LayoutLoad } from './$types';
 
-export const load = (async ({url, fetch}) => {
+export const load: LayoutLoad = async ({ fetch }) => {
+  try {
     const res = await fetch('/api/pokemon?limit=100');
-	const pokemones = (await res.json()) as CachedPokemonList;
-    return {
-        currentPath: url.pathname,
-        pokemones
+
+    if (!res.ok) {
+      throw new Error(`API request failed with status ${res.status}`);
     }
-}) satisfies LayoutLoad
+
+    const pokemons = (await res.json()) as CachedPokemonList;
+    return {
+      currentPath: url.pathname,
+      pokemones,
+    };
+  } catch (error) {
+    console.error('Error fetching Pokemon data:', error);
+    // Optionally return a default value or handle the error in the UI
+    return { currentPath: url.pathname, pokemons: [] };
+  }
+};
