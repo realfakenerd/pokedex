@@ -1,37 +1,37 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	export let name = '' as Elements | null;
-	export let fill = '';
-	export let width: number = 18;
-	export let height: number = 18;
+	interface Props {
+		class?: string;
+		name?: Elements;
+		fill?: string;
+		width?: number;
+		height?: number;
+	}
 
 	interface Icon {
 		box: { w: number; h: number };
 		svg: string;
 	}
 
-	let icon: Icon = {
+	let { class: className = '', name, fill = '', width = 18, height = 18 }: Props = $props();
+	let icon: Icon = $state({
 		box: {
 			w: 0,
 			h: 0
 		},
 		svg: ''
-	};
-
-	onMount(async () => {
-		try {
-			const imported = await import('./index.js');
-			icon = imported.default[name ?? 'bug'];
-		} catch (error) {
-			console.error('Error importing icon:', error);
-			icon = { box: { w: 0, h: 0 }, svg: '' };
-		}
 	});
+
+	$effect(() => {
+		import('./index.js')
+			.then((module) => (icon = module.default[name ?? 'bug']))
+			.catch(() => (icon = { box: { w: 0, h: 0 }, svg: '' }));
+	});
+
 </script>
 
 <svg
 	style:--fill-color={fill}
-	class={$$props.class}
+	class={className}
 	{height}
 	{width}
 	viewBox="0 0 {icon?.box.w} {icon?.box.h}"

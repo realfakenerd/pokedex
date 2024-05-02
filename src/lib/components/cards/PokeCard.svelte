@@ -1,10 +1,9 @@
 <script lang="ts">
+	import { db } from '$lib/db';
 	import Icon from '$lib/elements/Icon.svelte';
 	import { gibberish } from '$lib/utils';
-	import { cubicOut } from 'svelte/easing';
-	import { fly } from 'svelte/transition';
+	import { slide } from 'svelte/transition';
 	import PokePill from './PokePill.svelte';
-	import { db } from '$lib/db';
 
 	let {
 		id = 0,
@@ -38,7 +37,7 @@
 </script>
 
 <section
-	in:fly={{ y: 10, duration: 100, easing: cubicOut }}
+	in:slide={{duration: 500}}
 	style:--bg-color={gibberish(pokemontypes[0].type.name)}
 	style:--on-color={gibberish(pokemontypes[0].type.name, false)}
 	class="poke-container group"

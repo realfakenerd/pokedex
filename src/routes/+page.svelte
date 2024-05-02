@@ -1,24 +1,48 @@
 <script lang="ts">
 	import PokeCard from '$lib/components/cards/PokeCard.svelte';
 	import SearchBar from '$lib/components/inputs/Search.svelte';
-	import { createPokemonIndex, searchPokemon } from '$lib/search';
+	import { SearchWorker } from '$lib/worker';
 
 	let { data } = $props();
+	let { pokemones, types } = data;
 
-	let { pokemones } = data;
-	let value = $state('');
+	let search = $state<'idle' | 'load' | 'ready'>('idle');
+	let searchTerm = $state('');
+	let searchWorker: Worker;
+
+	interface MessageData {
+		type: 'ready' | 'results';
+		payload: {
+			results: CachedPokemon[];
+		};
+	}
 
 	let results = $state<CachedPokemon[]>([]);
 	$effect(() => {
-		if (pokemones) createPokemonIndex(pokemones.results);
-		if (value) {
-			searchPokemon(value).then((res) => (results = res));
-		} else results = pokemones.results;
+		if (!searchWorker) searchWorker = new SearchWorker();
+
+		searchWorker.addEventListener('message', ({ data }: MessageEvent<MessageData>) => {
+			const { type, payload } = data;
+
+			type === 'ready' && (search = 'ready');
+			if (type === 'results') results = payload?.results;
+			else results = pokemones;
+		});
+
+		if (!searchTerm) {
+			searchWorker.postMessage({ type: 'load' });
+		}
+
+		if (searchTerm) {
+			searchWorker.postMessage({ type: 'search', payload: { searchTerm } });
+		}
+
+		console.log(results[0]);
 	});
 
 	let current = $state<number>(10);
 	async function loadMore() {
-		const limit = pokemones.results.length;
+		const limit = pokemones.length;
 		if (current >= limit) return;
 		current += 10;
 	}
@@ -29,16 +53,42 @@
 	<link rel="shortcut icon" sizes="48x48" href="/favicon.ico" />
 </svelte:head>
 
-<SearchBar bind:value />
+<SearchBar bind:value={searchTerm} />
 
-<section  class="my-2 flex flex-col gap-2 px-2">
-	{#each results.slice(0, current) as { name, id, types }, index (index)}
-		<PokeCard {id} pokemontypes={types} pokename={name} />
-	{:else}
-		<div class="bg-surface-variant relative inline-flex min-h-[118px] rounded-2xl animate-pulse">
+<section class="relative flex items-center overflow-hidden">
+	<section class="scroll overflow-y-hidden overflow-x-scroll whitespace-nowrap">
+		<section class="inline-block overflow-hidden whitespace-nowrap px-2">
+			{#if types}
+				{#each types.results as type}
+					<div
+						class="bg-secondary relative m-2 ml-0 inline-flex h-8 items-center overflow-hidden rounded-lg px-3"
+					>
+						<button class="block max-w-[20rem] overflow-hidden text-ellipsis whitespace-nowrap">
+							{type.name}
+						</button>
+					</div>
+				{/each}
+			{/if}
+		</section>
+	</section>
+</section>
+
+<section class="my-2 flex flex-col gap-2 px-2">
+	{#if search === 'ready'}
+		{#each results.slice(0, current) as { name, id, types }, index (index)}
+			<PokeCard {id} pokemontypes={types} pokename={name} />
+		{/each}
+	{:else if search === 'idle'}
+		<div class="bg-surface-variant relative inline-flex min-h-[118px] animate-pulse rounded-2xl">
 			<!--  -->
 		</div>
-	{/each}
+		<div class="bg-surface-variant relative inline-flex min-h-[118px] animate-pulse rounded-2xl">
+			<!--  -->
+		</div>
+		<div class="bg-surface-variant relative inline-flex min-h-[118px] animate-pulse rounded-2xl">
+			<!--  -->
+		</div>
+	{/if}
 </section>
 <section class="flex w-full justify-center p-2">
 	<button
@@ -48,3 +98,9 @@
 		Load More
 	</button>
 </section>
+
+<style>
+	.scroll::-webkit-scrollbar {
+		display: none;
+	}
+</style>

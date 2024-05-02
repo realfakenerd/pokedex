@@ -1,17 +1,31 @@
-interface PokemonListDef {
-	id: number;
-	name: string;
-	types: PokemonType[];
+import { createPokemonIndex, searchPokemon } from '$lib/search';
+
+interface Payload {
+	searchTerm: string;
 }
 
 interface MessageData {
-    value: string;
-    pokemones: PokemonListDef[]
+	type: 'load' | 'search';
+	payload: Payload;
 }
 
-addEventListener('message', ({data}: MessageEvent<MessageData>) => {
-    const {value, pokemones} = data;
-    const res = pokemones.filter(val => val.name.includes(value.toLowerCase().trim()))
+addEventListener('message', async ({ data }: MessageEvent<MessageData>) => {
+	const { type, payload } = data;
 
-    postMessage(res);
-})
+	let indexCreated = false;
+	if (type === 'load' && !indexCreated) {
+		indexCreated = true;
+
+		const res = await fetch('/api/pokemon?limit=1302');
+		const data = (await res.json()) as CachedPokemon[];
+		createPokemonIndex(data);
+        
+		postMessage({ type: 'ready' });
+	}
+    
+	if (type === 'search') {
+        const searchTerm = payload.searchTerm;
+		const result = await searchPokemon(searchTerm);
+		postMessage({ type: 'result', payload: { result, searchTerm } });
+	}
+});

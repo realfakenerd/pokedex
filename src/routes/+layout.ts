@@ -1,21 +1,8 @@
+import { error } from '@sveltejs/kit';
 import type { LayoutLoad } from './$types';
 
-export const load: LayoutLoad = async ({ fetch, url }) => {
-  try {
-    const res = await fetch('/api/pokemon');
-
-    if (!res.ok) {
-      throw new Error(`API request failed with status ${res.status}`);
-    }
-
-    const pokemons = (await res.json()) as CachedPokemonList;
-    return {
-      currentPath: url.pathname,
-      pokemones,
-    };
-  } catch (error) {
-    console.error('Error fetching Pokemon data:', error);
-    // Optionally return a default value or handle the error in the UI
-    return { currentPath: url.pathname, pokemones: [] };
-  }
+export const load: LayoutLoad = async ({ url }) => {
+	return {
+		currentPath: url.pathname
+	};
 };

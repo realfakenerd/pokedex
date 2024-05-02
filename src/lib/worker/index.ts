@@ -1,1 +1,1 @@
-export {default as PokeWorker} from './pesquisa.worker?worker';
+export {default as SearchWorker} from './pesquisa.worker?worker';

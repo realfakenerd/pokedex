@@ -2,13 +2,13 @@
 	import Icon from '$lib/elements/Icon.svelte';
 	import { gibberish } from '$lib/utils';
 
-	export let pokemontypes: Elements;
+	let { pokemontypes, class: className }: { class?: string; pokemontypes: Elements } = $props();
 </script>
 
 <section
 	style:--bg-color={gibberish(pokemontypes, true, false)}
 	style:--on-color={gibberish(pokemontypes, false, false)}
-	class="pokepill {$$props.class ?? ''}"
+	class="pokepill {className ?? ''}"
 >
 	<figure>
 		<Icon name={pokemontypes} />
@@ -22,7 +22,7 @@
 	.pokepill {
 		background-color: rgb(var(--bg-color));
 		color: rgb(var(--on-color));
-		@apply inline-flex rounded-full items-center gap-2;
+		@apply inline-flex items-center gap-2 rounded-full;
 	}
 
 	.pokepill figure {

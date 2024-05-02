@@ -1,12 +1,19 @@
 <script lang="ts">
-	export let filled = false;
-	export let outlined = false;
-	export let disabled = false;
+	import type { Snippet } from "svelte";
+	
+	interface Props {
+		filled?: boolean;
+		outlined?: boolean;
+		disabled?: boolean;
+		children: Snippet;
+	}
+
+	let { filled = false, outlined = false, disabled = false, children }: Props = $props();
 </script>
 
 <button class:filled={!outlined} class:outlined={!filled} {disabled}>
 	<span>
-		<slot />
+		{@render children()}
 	</span>
 </button>
 

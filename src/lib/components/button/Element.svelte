@@ -1,7 +1,5 @@
 <script lang="ts">
-	import type { Elements } from '$lib/lib';
-
-	export let element: Elements = 'bug';
+	let { element = 'bug' }: { element: Elements } = $props();
 
 	function gibberish(bg = true, hover = false) {
 		if (bg) {

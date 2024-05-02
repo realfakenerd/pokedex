@@ -1,9 +1,11 @@
 <script lang="ts">
-	export let stats: PokemonStat;
+	let { stats }: { stats: PokemonStat } = $props();
 </script>
 
 <div class="poke-stat">
-	<div style:width={stats.base_stat + '%'} />
+	<div style:width={stats.base_stat + '%'}>
+		<!--  -->
+	</div>
 	<section>
 		<p>{stats.stat.name}</p>
 		<p>{stats.base_stat}</p>
