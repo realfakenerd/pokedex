@@ -1,10 +1,11 @@
-import FlexSearch from 'flexsearch';
+import Flexsearch, { type Document, type Index } from 'flexsearch';
 
-let pokeIndex: FlexSearch.Worker;
+let pokeIndex: Index;
 let pokemones: CachedPokemon[];
+let pokeDoc: Document<CachedPokemon[]>;
 
 export function createPokemonIndex(data: CachedPokemon[]) {
-	pokeIndex = new FlexSearch.Worker({ tokenize: 'forward', cache: true, preset: 'score' });
+	pokeIndex = new Flexsearch.Index({ tokenize: 'forward', cache: true, preset: 'performance' });
 
 	data.forEach((p, i) => {
 		const item = `${i}-${p.name}`;
@@ -18,7 +19,7 @@ export async function searchPokemon(value: string) {
 	const match = value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 	const results = await pokeIndex.searchAsync(match, {
-		limit: 5,
+		limit: 50,
 		suggest: true
 	});
 

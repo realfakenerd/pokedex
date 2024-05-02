@@ -4,6 +4,7 @@
 	import { gibberish } from '$lib/utils';
 	import { slide } from 'svelte/transition';
 	import PokePill from './PokePill.svelte';
+	import {stringify, parse} from 'devalue';
 
 	let {
 		id = 0,
@@ -19,16 +20,18 @@
 	let did = $state<NamedAPIResourceList | undefined>();
 	$effect(() => {
 		db.pokemones.get(id).then((d) => (did = d));
+		
 		if (did) dispatched = !dispatched;
 	});
-
+	
 	async function dispatchAdd() {
 		dispatched = !dispatched;
+		const _pokemontypes = parse(stringify(pokemontypes));
 		if (!did) {
 			did = await db.pokemones.add({
 				id,
 				name: pokename,
-				types: pokemontypes
+				types: _pokemontypes
 			});
 			return;
 		}
@@ -37,7 +40,6 @@
 </script>
 
 <section
-	in:slide={{duration: 500}}
 	style:--bg-color={gibberish(pokemontypes[0].type.name)}
 	style:--on-color={gibberish(pokemontypes[0].type.name, false)}
 	class="poke-container group"
@@ -104,7 +106,7 @@
 
 <style>
 	.poke-container {
-		@apply bg-surface-variant relative inline-flex min-h-[118px] rounded-2xl;
+		@apply bg-surface-variant relative inline-flex min-h-[118px] rounded-2xl w-full;
 	}
 
 	.image-section {

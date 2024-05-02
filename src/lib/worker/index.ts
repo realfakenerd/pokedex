@@ -1,1 +1,0 @@
-export {default as SearchWorker} from './pesquisa.worker?worker';

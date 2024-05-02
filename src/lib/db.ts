@@ -1,12 +1,14 @@
 import Dexie, {type Table} from 'dexie';
 
 class CustomDexie extends Dexie {
-    pokemones!: Table<PokemonListDef>;
+    favorites!: Table<PokemonListDef>;
+    pokemones!: Table<CachedPokemon>;
 
     constructor(){
-        super('pokefavorites');
+        super('pokemon');
         this.version(1).stores({
-            pokemones: 'id, name, types'
+            favorites: 'id, name, *types',
+            pokemones: 'id, name, *types',
         })
     }
 }

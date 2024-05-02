@@ -3,7 +3,7 @@
 	import { db } from '$lib/db';
 	import { liveQuery } from 'dexie';
 
-	let pokemones = liveQuery(() => db.pokemones.toArray());
+	let pokemones = liveQuery(() => db.favorites.toArray());
 </script>
 
 <section class="my-2 flex flex-col gap-2 px-2">

@@ -6,10 +6,7 @@ interface CachedPokemon {
 	types: PokemonType[];
 }
 
-interface CachedPokemonList {
-	next: string;
-	results: CachedPokemon[];
-}
+type PokemonListDef = CachedPokemonList
 
 type Elements =
 	| 'water'

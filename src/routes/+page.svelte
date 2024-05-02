@@ -1,43 +1,23 @@
 <script lang="ts">
 	import PokeCard from '$lib/components/cards/PokeCard.svelte';
 	import SearchBar from '$lib/components/inputs/Search.svelte';
-	import { SearchWorker } from '$lib/worker';
-
+	import { createPokemonIndex, searchPokemon } from '$lib/search';
+	import { gibberish } from '$lib/utils.js';
 	let { data } = $props();
 	let { pokemones, types } = data;
 
-	let search = $state<'idle' | 'load' | 'ready'>('idle');
 	let searchTerm = $state('');
-	let searchWorker: Worker;
-
-	interface MessageData {
-		type: 'ready' | 'results';
-		payload: {
-			results: CachedPokemon[];
-		};
-	}
-
 	let results = $state<CachedPokemon[]>([]);
+
+	let indexCreated = $state(false);
 	$effect(() => {
-		if (!searchWorker) searchWorker = new SearchWorker();
+		if (!indexCreated) {
+			createPokemonIndex(pokemones);
+			indexCreated = true;
+		};
 
-		searchWorker.addEventListener('message', ({ data }: MessageEvent<MessageData>) => {
-			const { type, payload } = data;
-
-			type === 'ready' && (search = 'ready');
-			if (type === 'results') results = payload?.results;
-			else results = pokemones;
-		});
-
-		if (!searchTerm) {
-			searchWorker.postMessage({ type: 'load' });
-		}
-
-		if (searchTerm) {
-			searchWorker.postMessage({ type: 'search', payload: { searchTerm } });
-		}
-
-		console.log(results[0]);
+		if (searchTerm) searchPokemon(searchTerm).then((r) => (results = r));
+		else results = pokemones;
 	});
 
 	let current = $state<number>(10);
@@ -47,6 +27,12 @@
 		current += 10;
 	}
 </script>
+
+{#snippet  skeleton()}
+<div class="bg-surface-variant relative inline-flex min-h-[118px] animate-pulse rounded-2xl">
+	<!--  -->
+</div>
+{/snippet}
 
 <svelte:head>
 	<title>Pokédex</title>
@@ -59,8 +45,11 @@
 	<section class="scroll overflow-y-hidden overflow-x-scroll whitespace-nowrap">
 		<section class="inline-block overflow-hidden whitespace-nowrap px-2">
 			{#if types}
-				{#each types.results as type}
+				{#each (types as NamedAPIResourceList).results as type}
 					<div
+						style:--bg-color={gibberish(type.name)}
+						style:--on-color={gibberish(type.name, false)}
+						style="background-color: rgb(var(--bg-color)); color: rgb(var(--on-color));"
 						class="bg-secondary relative m-2 ml-0 inline-flex h-8 items-center overflow-hidden rounded-lg px-3"
 					>
 						<button class="block max-w-[20rem] overflow-hidden text-ellipsis whitespace-nowrap">
@@ -73,21 +62,17 @@
 	</section>
 </section>
 
-<section class="my-2 flex flex-col gap-2 px-2">
-	{#if search === 'ready'}
+<section class="my-2 grid grid-cols-1 md:grid-cols-3 gap-2 px-2">
+	{#if results}
 		{#each results.slice(0, current) as { name, id, types }, index (index)}
 			<PokeCard {id} pokemontypes={types} pokename={name} />
+		{:else}
+			{@render skeleton()}
+			{@render skeleton()}
+			{@render skeleton()}
+			{@render skeleton()}
+			{@render skeleton()}
 		{/each}
-	{:else if search === 'idle'}
-		<div class="bg-surface-variant relative inline-flex min-h-[118px] animate-pulse rounded-2xl">
-			<!--  -->
-		</div>
-		<div class="bg-surface-variant relative inline-flex min-h-[118px] animate-pulse rounded-2xl">
-			<!--  -->
-		</div>
-		<div class="bg-surface-variant relative inline-flex min-h-[118px] animate-pulse rounded-2xl">
-			<!--  -->
-		</div>
 	{/if}
 </section>
 <section class="flex w-full justify-center p-2">
