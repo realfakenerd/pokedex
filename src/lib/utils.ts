@@ -1,3 +1,10 @@
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+	return twMerge(clsx(inputs));
+}
+
 export function gibberish(thing: string | Elements, bg = true, hover = false) {
 	if (bg) {
 		if (hover) return `var(--color-${thing}-hover)`;

@@ -6,3 +6,13 @@ html {
 	font-family: 'Poppins', sans-serif;
 	font-display: swap;
 }
+
+img {
+	width: 100%;
+	height: auto;
+	vertical-align: middle;
+	font-style: italic;
+	background-repeat: no-repeat;
+	background-size: cover;
+	shape-margin: 1rem;
+}

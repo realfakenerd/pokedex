@@ -10,9 +10,12 @@
 	const { pokemon, specie, streamed } = data;
 
 	const id = pokemon.id;
-	
+
 	let naturalWidth = $state<number>(0);
 	let naturalHeight = $state<number>(0);
+
+	$inspect(naturalWidth);
+	$inspect(naturalHeight);
 
 	const icon = pokemon.sprites?.versions?.['generation-vii'].icons.front_default;
 	const pokemontypes = pokemon.types[0].type.name;
@@ -48,7 +51,7 @@
 >
 	<header>
 		<section class="buttons-section">
-			<button onclick={() => history.back()}>
+			<button class="ring-0 hover:ring-2  transition-shadow ring-surface rounded-full inline-flex items-center" onclick={() => history.back()}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="38"
@@ -98,8 +101,8 @@
 					src="https://projectpokemon.org/images/normal-sprite/{pokemon.name}.gif"
 					bind:naturalWidth
 					bind:naturalHeight
-					width={naturalWidth * 2}
-					height={naturalHeight * 2}
+					style:width={`${naturalWidth * 2}px`}
+					style:height={`${naturalHeight * 2}px`}
 					alt="{pokemon.name} gif"
 					loading="eager"
 				/>

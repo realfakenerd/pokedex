@@ -4,7 +4,7 @@
 	import { gibberish } from '$lib/utils';
 	import { slide } from 'svelte/transition';
 	import PokePill from './PokePill.svelte';
-	import {stringify, parse} from 'devalue';
+	import { stringify, parse } from 'devalue';
 
 	let {
 		id = 0,
@@ -16,26 +16,39 @@
 		pokemontypes: PokemonType[];
 	} = $props();
 
-	let dispatched = $state(false);
-	let did = $state<NamedAPIResourceList | undefined>();
+	let favorited = $state(false);
+	let favorite = $state();
+
 	$effect(() => {
-		db.pokemones.get(id).then((d) => (did = d));
-		
-		if (did) dispatched = !dispatched;
+		(async () => {
+			favorite = await db.favorites.get(id);
+
+			if (favorite) favorited = !favorited;
+		})();
 	});
-	
-	async function dispatchAdd() {
-		dispatched = !dispatched;
-		const _pokemontypes = parse(stringify(pokemontypes));
-		if (!did) {
-			did = await db.pokemones.add({
+
+	async function favoritePokemon() {
+		favorited = !favorited;
+
+		if (!favorite) {
+			const _types = parse(stringify(pokemontypes));
+			favorite = await db.favorites.add({
 				id,
 				name: pokename,
-				types: _pokemontypes
+				types: _types
 			});
 			return;
+		} else {
+			await db.favorites.delete(id);
 		}
-		await db.pokemones.delete(id);
+	}
+
+	function fallbackImage(
+		e: Event,
+		newSrc = 'https://projectpokemon.org/images/sprites-models/sv-sprites-home/0000.png'
+	) {
+		const image = e.target as HTMLImageElement;
+		image.src = newSrc;
 	}
 </script>
 
@@ -45,20 +58,17 @@
 	class="poke-container group"
 >
 	<section class="info-section">
-		<header
-			class="flex flex-col items-start justify-start transition-colors group-hover:text-[rgb(var(--bg-color))]"
+		<a
+			href={`/pokemon/${pokename}`}
+			class="flex w-full flex-col items-start justify-start transition-colors group-hover:text-[rgb(var(--bg-color))]"
 		>
-			<a href={`/pokemon/${pokename}`} class="text-title-small group-hover:underline">
+			<h1 class="text-title-small group-hover:underline">
 				Nº {id < 100 ? (id < 10 ? `00${id}` : `0${id}`) : id}
-			</a>
-			<a
-				style:view-transition-name={pokename}
-				href={`/pokemon/${pokename}`}
-				class="text-title-large capitalize"
-			>
+			</h1>
+			<h2 style:view-transition-name={pokename} class="text-title-large capitalize">
 				{pokename}
-			</a>
-		</header>
+			</h2>
+		</a>
 		<main class="inline-flex w-full items-start justify-start gap-1">
 			<PokePill class="w-1/2 px-1.5 py-1" pokemontypes={pokemontypes[0].type.name} />
 			{#if pokemontypes.length > 1}
@@ -76,26 +86,27 @@
 		</div>
 		<figure>
 			<img
+				onerror={fallbackImage}
 				width="256"
 				height="256"
 				loading={id <= 4 ? 'eager' : 'lazy'}
 				decoding="async"
-				src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
+				src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
 				alt={`Image of ${pokename}`}
 			/>
 		</figure>
 	</section>
 
 	<button
-		aria-label={dispatched ? 'Remove from Favorites' : 'Add to Favorites'}
-		onclick={dispatchAdd}
+		aria-label={favorited ? 'Remove from Favorites' : 'Add to Favorites'}
+		onclick={favoritePokemon}
 		class="bg-surface/30 ring-on-surface absolute right-2 top-2 z-20 flex h-8 w-8 items-center justify-center rounded-full ring-2 backdrop-blur-sm"
 	>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="16"
 			height="16"
-			class="stroke-on-surface {dispatched ? 'fill-on-surface' : 'fill-none'}"
+			class="stroke-on-surface {favorited ? 'fill-on-surface' : 'fill-none'}"
 		>
 			<path
 				d="M13.9 3.07a3.67 3.67 0 0 0-5.2 0l-.7.71-.7-.7a3.67 3.67 0 1 0-5.2 5.18l.71.7L8 14.17l5.19-5.2.7-.7a3.67 3.67 0 0 0 0-5.19Z"
@@ -106,7 +117,7 @@
 
 <style>
 	.poke-container {
-		@apply bg-surface-variant relative inline-flex min-h-[118px] rounded-2xl w-full;
+		@apply bg-surface-variant relative inline-flex min-h-[118px] w-full rounded-2xl;
 	}
 
 	.image-section {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Icon from '$lib/elements/Icon.svelte';
-	import { gibberish } from '$lib/utils';
+	import { cn, gibberish } from '$lib/utils';
 
 	let { pokemontypes, class: className }: { class?: string; pokemontypes: Elements } = $props();
 </script>
@@ -8,7 +8,7 @@
 <section
 	style:--bg-color={gibberish(pokemontypes, true, false)}
 	style:--on-color={gibberish(pokemontypes, false, false)}
-	class="pokepill {className ?? ''}"
+	class={cn('pokepill', className)}
 >
 	<figure>
 		<Icon name={pokemontypes} />

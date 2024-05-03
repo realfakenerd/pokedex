@@ -1,22 +1,14 @@
 <script lang="ts">
+	import { gibberish } from '$lib/utils';
+
 	let { element = 'bug' }: { element: Elements } = $props();
-
-	function gibberish(bg = true, hover = false) {
-		if (bg) {
-			if (hover) return `var(--color-${element}-container-hover)`;
-			return `var(--color-${element}-container)`;
-		}
-
-		if (hover) return `var(--color-on-${element}-container-hover)`;
-		return `var(--color-on-${element}-container)`;
-	}
 </script>
 
 <button
-	style:--bg-color={gibberish()}
-	style:--bg-color-hover={gibberish(true, true)}
-	style:--on-color={gibberish(false)}
-	style:--on-color-hover={gibberish(false, true)}
+	style:--bg-color={gibberish(element)}
+	style:--bg-color-hover={gibberish(element, true, true)}
+	style:--on-color={gibberish(element, false)}
+	style:--on-color-hover={gibberish(element, false, true)}
 >
 	<span class="text-label-large">
 		{element}
