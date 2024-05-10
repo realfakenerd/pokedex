@@ -15,9 +15,7 @@ export function gibberish(thing: string | Elements, bg = true, hover = false) {
 	return `var(--color-on-${thing})`;
 }
 
-const animationTimingFunction = 'cubic-bezier(0.291, 0.281, 0, 1.2)';
-const initialBottomValue = ['0px', '6rem'];
-const scrolledDownBottomValue = ['-80px', '1rem'];
+
 
 type DebounceFunction = (...args: unknown[]) => void;
 function debounce(fn: DebounceFunction, delay: number) {
@@ -32,6 +30,10 @@ function debounce(fn: DebounceFunction, delay: number) {
 	};
 }
 
+const animationTimingFunction = 'cubic-bezier(0.291, 0.281, 0, 1.2)';
+const initialBottomValue = ['0px', '6rem'];
+const scrolledDownBottomValue = ['80px', '1rem'];
+
 /**
  * The `handleScroll` function adjusts the position of a node and a floating action button based on the
  * scroll direction.
@@ -44,9 +46,14 @@ function debounce(fn: DebounceFunction, delay: number) {
  */
 export function handleScroll(node: HTMLElement, fab?: HTMLElement) {
 	let lastScrollTop = 0;
+	const nodeStyles = node.style;
 
-	node.style.animationTimingFunction = animationTimingFunction;
-	if (fab) fab.style.animationTimingFunction = animationTimingFunction;
+	nodeStyles.animationTimingFunction = animationTimingFunction;
+	nodeStyles.transitionProperty = 'transform';
+	nodeStyles.transitionDuration = '250ms'
+
+	nodeStyles.transform = 'translateY(0)';
+	if (fab) fab.style.transform = 'translateY(0)';
 
 	/**
 	 * The function updates the scroll position and adjusts the position of a node and a floating action
@@ -55,10 +62,10 @@ export function handleScroll(node: HTMLElement, fab?: HTMLElement) {
 	function updateScroll() {
 		const scrollTop = window.scrollY || document.documentElement.scrollTop;
 		const isScrollingDown = scrollTop > lastScrollTop;
-		node.style.bottom = isScrollingDown ? scrolledDownBottomValue[0] : initialBottomValue[0];
+		nodeStyles.transform = `translateY(${isScrollingDown ? scrolledDownBottomValue[0] : initialBottomValue[0]})`;
 
 		if (fab)
-			fab.style.bottom = isScrollingDown ? scrolledDownBottomValue[1] : initialBottomValue[1];
+			fab.style.transform = `translateY(${isScrollingDown ? scrolledDownBottomValue[1] : initialBottomValue[1]})`;
 		lastScrollTop = scrollTop;
 	}
 

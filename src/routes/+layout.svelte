@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onNavigate } from '$app/navigation';
 	import Navbar from '$lib/components/navigation/Navbar.svelte';
-	import { handleScroll } from '$lib/utils';
 	import '@fontsource/poppins/400.css';
 	import '@fontsource/poppins/500.css';
 	import '../app.css';
@@ -16,18 +15,14 @@
 		});
 	});
 
-	let {data, children} = $props();
+	let {children} = $props();
 </script>
 
-{#key data.currentPath}
-	<main class="min-h-[100dvh]">
-		{@render children()}
-	</main>
-{/key}
+<main class="min-h-[100dvh]">
+	{@render children()}
+</main>
 
-<footer use:handleScroll class="fixed bottom-0 left-0 z-50 w-full transition-all duration-150">
-	<Navbar />
-</footer>
+<Navbar />
 
 <style>
 	:global(:root) {

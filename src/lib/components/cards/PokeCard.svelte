@@ -65,7 +65,7 @@
 			<h1 class="text-title-small group-hover:underline">
 				Nº {id < 100 ? (id < 10 ? `00${id}` : `0${id}`) : id}
 			</h1>
-			<h2 style:view-transition-name={pokename} class="text-title-large capitalize">
+			<h2 class="text-title-large capitalize">
 				{pokename}
 			</h2>
 		</a>

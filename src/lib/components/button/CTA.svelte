@@ -27,7 +27,7 @@
 	}
 
 	button.outlined:not(:disabled) {
-		@apply ring-primary-container text-on-primary-container ring-1 transition-all;
+		@apply ring-primary-container text-on-surface ring-1 transition-all;
 	}
 
 	button.outlined:hover:not(:disabled) {

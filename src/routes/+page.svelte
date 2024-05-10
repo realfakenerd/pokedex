@@ -53,8 +53,11 @@
 	<link rel="shortcut icon" sizes="48x48" href="/favicon.ico" />
 </svelte:head>
 
-<SearchBar bind:value={searchTerm} />
 
+<section class="px-2 py-4">
+	<SearchBar bind:value={searchTerm} />
+</section>
+	
 <section class="relative flex items-center overflow-hidden">
 	<section class="scroll overflow-y-hidden overflow-x-scroll whitespace-nowrap">
 		<section class="inline-block overflow-hidden whitespace-nowrap px-2">
@@ -76,7 +79,7 @@
 	</section>
 </section>
 
-<section  class=" my-2 grid grid-cols-1 md:grid-cols-3 gap-2 px-2">
+<section  class="my-2 grid grid-cols-1 md:grid-cols-3 gap-2 px-2">
 	{#if results}
 		{#each results.slice(0, current) as { name, id, types }, index (index)}
 		<div use:loadMoreCard class="w-full" in:slide={{ duration: 250, axis: 'x' }}>
