@@ -34,6 +34,7 @@
 		"eslint-plugin-svelte": "^2.38.0",
 		"flexsearch": "^0.7.43",
 		"lru-cache": "^10.2.2",
+		"mode-watcher": "^0.3.0",
 		"postcss": "^8.4.38",
 		"postcss-import": "^14.1.0",
 		"prettier": "^2.8.8",
